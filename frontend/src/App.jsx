@@ -11,6 +11,7 @@ import GoogleTranslate from "./services/GoogleTranslator";
 import Loader from "./services/Loader";
 import NotFound from "./pages/NotFound";
 import AddDetailForm from "./home/AddDetailForm";
+import Footer from "./home/Footer";
 
 const App = () => {
   return (
@@ -42,6 +43,7 @@ const App = () => {
           </Routes>
           <Toaster richColors />
         </div>
+        <Footer />
       </BrowserRouter>
     </Suspense>
   );
