@@ -23,6 +23,7 @@ import MockInterviewForm from "./AIConsultant/MockInterviewForm";
 import InterviewScreen from "./AIConsultant/InterviewScreen";
 import Questions from "./Community/Questions";
 import ViewQuestion from "./Community/ViewQuestion";
+import Allpodcast from "./AIPodcast/ALLPodcast";
 const App = () => {
   return (
     <Suspense fallback={<Loader />}>
@@ -43,6 +44,14 @@ const App = () => {
                 <NonAuthenticatedRoute>
                   <UserLogin />
                 </NonAuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/podcast"
+              element={
+                <AuthenticatedRoute>
+                  <Allpodcast />
+                </AuthenticatedRoute>
               }
             />
             <Route

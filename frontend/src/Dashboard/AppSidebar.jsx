@@ -6,17 +6,19 @@ import { Button } from '@/components/ui/button';
 import logo from "../assets/logo.png";
 import { Separator } from "@/components/ui/separator"
 import { tokenState, userState } from '@/store/auth';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { toast } from 'sonner';
-import { FaBandAid, FaFolderOpen } from "react-icons/fa";
+import { FaBandAid, FaFolderOpen, FaVideo } from "react-icons/fa";
 import { MdSettingsVoice } from "react-icons/md";
+import { Crown } from 'lucide-react';
 
 const data = {
     navMain: [
         { title: 'Dashboard', url: '/dashboard', icon: MdSpaceDashboard },
         { title: 'Legal Aid', url: '/legalaid', icon: FaBandAid },
         { title: 'My Legal Aids', url: '/mylegalaids', icon: FaFolderOpen },
-        { title: 'AI Consultant', url: '/aiconsultant', icon: MdSettingsVoice }
+        { title: 'AI Consultant', url: '/aiconsultant', icon: FaVideo },
+        { title: 'AI Podcast', url: '/podcast', icon: MdSettingsVoice }
     ],
 };
 
@@ -25,13 +27,17 @@ const AppSidebar = () => {
     const location = useLocation();
     const setTokenState = useSetRecoilState(tokenState);
     const navigate = useNavigate();
-
+    const user = useRecoilValue(userState);
+    console.log(user)
     const handleLogout = () => {
         localStorage.removeItem("token");
         setTokenState("");
         toast.success("Logged out successfully");
         navigate("/");
     };
+
+    const proFeatures = ['Legal Aid', 'AI Consultant'];
+
     return (
         <Sidebar className="w-[275px] min-h-screen shadow-md" style={{ color: `var(--text-color)`, borderColor: `var(--borderColor)` }}>
             <SidebarHeader className="px-4" style={{ backgroundColor: `var(--background-color)` }}>
@@ -45,6 +51,7 @@ const AppSidebar = () => {
                 <SidebarMenu>
                     {data.navMain.map((item, index) => {
                         const isActive = location.pathname === item.url;
+                        const isPro = proFeatures.includes(item.title);
 
                         return (
                             <SidebarMenuItem key={index}>
@@ -61,6 +68,9 @@ const AppSidebar = () => {
 
                                     <div className="text-sm font-semibold flex items-center">
                                         {item.title}
+                                        {user.isPaid && isPro && (
+                                            <Crown className="text-yellow-400 ml-2" size={18} />
+                                        )}
                                     </div>
                                 </Link>
                             </SidebarMenuItem>

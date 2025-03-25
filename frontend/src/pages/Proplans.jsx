@@ -2,11 +2,17 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'sonner';
+import { HiCheckCircle, HiLightningBolt } from "react-icons/hi";
+import { ShinyButton } from "@/components/magicui/shiny-button";
+import { Button } from "@/components/ui/button";
+import { useRecoilValue } from 'recoil';
+import { userState } from '@/store/auth';
 
 const Proplans = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const API_URL = import.meta.env.VITE_BASE_URL;
+    const user1 = useRecoilValue(userState);
 
     const handlePayment = async (amount, planName) => {
         setIsLoading(true);
@@ -43,6 +49,7 @@ const Proplans = () => {
                         localStorage.setItem('legalFormPayment', 'paid');
                         toast.success("Payment successful!");
                         navigate('/legalaid'); // Redirect to legal aid form
+                        window.location.reload();
                     },
                     prefill: {
                         email: localStorage.getItem("userEmail") || "",
@@ -64,170 +71,79 @@ const Proplans = () => {
     };
 
     return (
-        <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
-                <div className="text-center">
-                    <h2 className="text-3xl font-bold sm:text-4xl mb-2">
-                        Legal Service Plans
-                    </h2>
-                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                        Get professional legal assistance with our comprehensive service plans
-                    </p>
+        <div className="container px-5 mt-16 mx-auto">
+            <div className="flex flex-col items-center gap-2 my-10 px-4 mb-12">
+                <h1 className="text-3xl sm:text-4xl font-bold text-center">
+                    Our <span className="text-primary">Pricing</span>
+                </h1>
+                <p className="text-center text-lg opacity-90 tracking-tight">
+                    Unlock the full potential of <span className="font-semibold">Satyadarshi</span> with AI-powered
+                    tools. Get started for free or go unlimited for just <span className="font-semibold">₹99/month</span>.
+                </p>
+            </div>
+
+            <div className="flex flex-wrap justify-center gap-6 items-center">
+                <div
+                    className="p-6 w-full sm:w-80 rounded-xl border shadow-md"
+                    style={{
+                        backgroundColor: `var(--background-color)`,
+                        color: `var(--text-color)`,
+                        borderColor: `var(--borderColor)`,
+                    }}
+                >
+                    <h2 className="text-sm font-semibold uppercase">Free Plan</h2>
+                    <h1 className="text-4xl font-bold mt-2">₹0/month</h1>
+                    <p className="text-gray-600 mt-2">Try all features up to 3 times</p>
+                    <div className="mt-4 space-y-2">
+                        <p className="flex items-center gap-2">
+                            <HiCheckCircle className="text-green-500 text-xl" /> Create Legal Aid
+                            upto 3 times
+                        </p>
+                        <p className="flex items-center gap-2">
+                            <HiCheckCircle className="text-green-500 text-xl" /> Use AI Consultant
+                            upto 3 times
+                        </p>
+                        <p className="flex items-center gap-2">
+                            <HiCheckCircle className="text-green-500 text-xl" /> Community Feature
+                        </p>
+                        <p className="flex items-center gap-2">
+                            <HiCheckCircle className="text-green-500 text-xl" /> AI Podcasts
+                            upto 3 times
+                        </p>
+                    </div>
+                    <Button className="w-full mt-6">GET STARTED</Button>
                 </div>
 
-                <div className="mt-12 grid gap-8 lg:grid-cols-3 sm:grid-cols-2">
-                    {/* Basic Plan */}
-                    <div className="rounded-2xl shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300 border" style={{ backgroundColor: `var(--background-color)`, borderColor: `var(--borderColor)` }}>
-                        <div className="bg-green-600 p-4">
-                            <h3 className="text-xl font-bold text-white text-center">Basic Plan</h3>
-                        </div>
-                        <div className="p-8">
-                            <div className="text-center mb-6">
-                                <p className="text-4xl font-bold ">₹500</p>
-                                <p className="text-gray-500 mt-1">One-time consultation</p>
-                            </div>
-
-                            <ul className="space-y-4 mb-8">
-                                <li className="flex items-center text-gray-500">
-                                    <svg className="h-5 w-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    Basic legal consultation
-                                </li>
-                                <li className="flex items-center text-gray-500">
-                                    <svg className="h-5 w-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    Document review
-                                </li>
-                                <li className="flex items-center text-gray-500">
-                                    <svg className="h-5 w-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    24/7 Support
-                                </li>
-                            </ul>
-
-                            <button
-                                onClick={() => handlePayment(500, 'Basic')}
-                                disabled={isLoading}
-                                className="w-full bg-green-600 text-white py-3 px-4 rounded-xl font-medium hover:bg-green-700 transition-all duration-200 disabled:bg-green-400 shadow-lg hover:shadow-xl"
-                            >
-                                {isLoading ? (
-                                    <div className="flex items-center justify-center">
-                                        <svg className="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
-                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                                        </svg>
-                                        Processing...
-                                    </div>
-                                ) : 'Get Started'}
-                            </button>
-                        </div>
+                <div className="p-8 w-full sm:w-96 border border-primary rounded-xl shadow-md text-white bg-gradient-to-r from-[#7c3aed] to-[#00FFF1] magic-border transform scale-105">
+                    <h2 className="text-sm font-semibold uppercase">Pro Plan</h2>
+                    <h1 className="text-5xl font-bold mt-2 break-words">₹99/month</h1>
+                    <p className="mt-2">Unlimited access to all features</p>
+                    <div className="mt-4 space-y-3">
+                        <p className="flex items-center gap-2">
+                            <HiLightningBolt className="text-yellow-300 text-xl" /> Unlimited
+                            Legal Aid Creation
+                        </p>
+                        <p className="flex items-center gap-2">
+                            <HiLightningBolt className="text-yellow-300 text-xl" /> Unlimited
+                            AI Consultant
+                        </p>
+                        <p className="flex items-center gap-2">
+                            <HiLightningBolt className="text-yellow-300 text-xl" /> Unlimited
+                            AI Podcasts
+                        </p>
+                        <p className="flex items-center gap-2">
+                            <HiLightningBolt className="text-yellow-300 text-xl" /> 24/7 Support
+                        </p>
                     </div>
 
-                    {/* Standard Plan */}
-                    <div className="rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 border-2 border-green-500">
-                        <div className="bg-green-600 p-4 relative">
-                            <h3 className="text-xl font-bold text-white text-center">Standard Plan</h3>
-                            <div className="absolute top-0 right-0 bg-yellow-400 text-xs font-bold px-2 py-1 rounded-bl-lg text-gray-900">
-                                POPULAR
-                            </div>
-                        </div>
-                        <div className="p-8">
-                            <div className="text-center mb-6">
-                                <p className="text-4xl font-bold">₹1,000</p>
-                                <p className="text-gray-500 mt-1">Monthly subscription</p>
-                            </div>
-
-                            <ul className="space-y-4 mb-8">
-                                <li className="flex items-center text-gray-500">
-                                    <svg className="h-5 w-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    All Basic Plan features
-                                </li>
-                                <li className="flex items-center text-gray-500">
-                                    <svg className="h-5 w-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    Priority Support
-                                </li>
-                                <li className="flex items-center text-gray-500">
-                                    <svg className="h-5 w-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    Monthly Legal Advisory
-                                </li>
-                            </ul>
-
-                            <button
-                                onClick={() => handlePayment(1000, 'Standard')}
-                                disabled={isLoading}
-                                className="w-full bg-green-600 text-white py-3 px-4 rounded-xl font-medium hover:bg-green-700 transition-all duration-200 disabled:bg-green-400 shadow-lg hover:shadow-xl"
-                            >
-                                {isLoading ? (
-                                    <div className="flex items-center justify-center">
-                                        <svg className="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
-                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                                        </svg>
-                                        Processing...
-                                    </div>
-                                ) : 'Choose Standard'}
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Premium Plan */}
-                    <div className="rounded-2xl shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300 border" style={{ backgroundColor: `var(--background-color)`, borderColor: `var(--borderColor)` }}>
-                        <div className="bg-green-600 p-4">
-                            <h3 className="text-xl font-bold text-white text-center">Premium Plan</h3>
-                        </div>
-                        <div className="p-8">
-                            <div className="text-center mb-6">
-                                <p className="text-4xl font-bold">₹1,500</p>
-                                <p className="text-gray-500 mt-1">Monthly subscription</p>
-                            </div>
-
-                            <ul className="space-y-4 mb-8">
-                                <li className="flex items-center text-gray-500">
-                                    <svg className="h-5 w-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    All Standard Plan features
-                                </li>
-                                <li className="flex items-center text-gray-500">
-                                    <svg className="h-5 w-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    Dedicated Legal Advisor
-                                </li>
-                                <li className="flex items-center text-gray-500">
-                                    <svg className="h-5 w-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    Unlimited Consultations
-                                </li>
-                            </ul>
-
-                            <button
-                                onClick={() => handlePayment(1500, 'Premium')}
-                                disabled={isLoading}
-                                className="w-full bg-green-600 text-white py-3 px-4 rounded-xl font-medium hover:bg-green-700 transition-all duration-200 disabled:bg-green-400 shadow-lg hover:shadow-xl"
-                            >
-                                {isLoading ? (
-                                    <div className="flex items-center justify-center">
-                                        <svg className="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
-                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                                        </svg>
-                                        Processing...
-                                    </div>
-                                ) : 'Choose Premium'}
-                            </button>
-                        </div>
-                    </div>
+                    <ShinyButton
+                        onClick={() => handlePayment(99, 'Basic')}
+                        className={`py-3 w-full mt-6 font-semibold text-lg 
+                        ${user1.isPaid ? "bg-gray-400 text-gray-700 cursor-not-allowed" : "bg-white text-gray-900"}`}
+                        disabled={user1.isPaid}
+                    >
+                        {user1.isPaid ? "Subscribed" : "Upgrade Now"}
+                    </ShinyButton>
                 </div>
             </div>
         </div>
