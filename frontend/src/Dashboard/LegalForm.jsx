@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import * as pdfjsLib from 'pdfjs-dist';
 import 'pdfjs-dist/build/pdf.worker.min.mjs';
@@ -40,6 +40,9 @@ const LegalForm = () => {
     const [submitStatus, setSubmitStatus] = useState(null);
     const [caseReference, setCaseReference] = useState('');
     const [responseDetails, setResponseDetails] = useState(null);
+    const [isPaid, setIsPaid] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
     const validateForm = () => {
         const newErrors = {};
 
@@ -230,6 +233,109 @@ const LegalForm = () => {
             }
         }
     };
+
+    const handlePayment = async () => {
+        setIsLoading(true);
+        try {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                toast.error("Please login to continue");
+                return;
+            }
+
+            // Create order in Razorpay
+            const paymentResponse = await axios.post(
+                `${API_URL}/api/payment`,
+                {
+                    amount: 500, // Amount in INR (e.g., ₹500)
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            if (paymentResponse.data.success) {
+                const options = {
+                    key: paymentResponse.data.key_id,
+                    amount: paymentResponse.data.amount,
+                    currency: paymentResponse.data.currency,
+                    order_id: paymentResponse.data.id,
+                    name: "Legal Form Submission",
+                    description: "Legal Form Access Fee",
+                    handler: function (response) {
+                        // Payment successful
+                        setIsPaid(true);
+                        toast.success("Payment successful! You can now access the form.");
+                    },
+                    prefill: {
+                        email: localStorage.getItem("userEmail") || "",
+                    },
+                    theme: {
+                        color: "#16a34a",
+                    },
+                };
+
+                const razorpay = new window.Razorpay(options);
+                razorpay.open();
+            }
+        } catch (error) {
+            console.error("Payment error:", error);
+            toast.error("Payment failed. Please try again.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    // Payment gateway component
+    const PaymentGateway = () => (
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-green-50 to-green-100">
+            <div className="bg-white p-8 rounded-2xl shadow-lg max-w-md w-full">
+                <h2 className="text-2xl font-bold text-center text-primary mb-6">Access Legal Form</h2>
+                <div className="text-center mb-6">
+                    <div className="bg-green-100 rounded-full p-4 mx-auto w-16 h-16 mb-4">
+                        <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <p className="text-gray-600 mb-4">
+                        To access the legal form, please pay a processing fee of ₹500
+                    </p>
+                    <div className="text-sm text-gray-500 mb-6">
+                        This fee includes:
+                        <ul className="mt-2 space-y-1">
+                            <li>• Form processing</li>
+                            <li>• Initial legal review</li>
+                            <li>• Document verification</li>
+                        </ul>
+                    </div>
+                </div>
+                <button
+                    onClick={handlePayment}
+                    disabled={isLoading}
+                    className="w-full bg-green-600 text-white py-3 rounded-xl font-medium hover:bg-green-700 transition-colors duration-200 disabled:bg-green-400"
+                >
+                    {isLoading ? (
+                        <span className="flex items-center justify-center">
+                            <svg className="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                            </svg>
+                            Processing...
+                        </span>
+                    ) : (
+                        "Pay ₹500 to Continue"
+                    )}
+                </button>
+            </div>
+        </div>
+    );
+
+    // Render payment gateway if not paid
+    if (!isPaid) {
+        return <PaymentGateway />;
+    }
 
     return (
         <SidebarProvider>
