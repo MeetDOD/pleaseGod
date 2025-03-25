@@ -49,8 +49,8 @@ const Navbar = () => {
                 <NavLink to="/legalbasics">
                     <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Basics</li>
                 </NavLink>
-                <NavLink to="/caseexplorer">
-                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Explorer</li>
+                <NavLink to="/community">
+                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Community</li>
                 </NavLink>
                 <NavLink to="/proplans">
                     <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Plans</li>
@@ -86,7 +86,7 @@ const Navbar = () => {
                     <ul className='flex flex-col items-center gap-2 mt-5 px-5 text-lg font-medium list-none'>
                         <NavLink to="/legalscenarios" onClick={() => setShowMenu(false)}><p className="px-4 py-2 hover:text-primary transition rounded-md inline-block">Scenarios</p></NavLink>
                         <NavLink to="/legalbasics" onClick={() => setShowMenu(false)}><p className="px-4 py-2 hover:text-primary transition rounded-md inline-block">Basics</p></NavLink>
-                        <NavLink to="/explorer" onClick={() => setShowMenu(false)}><p className="px-4 py-2 hover:text-primary transition rounded-md inline-block">Explorer</p></NavLink>
+                        <NavLink to="/community" onClick={() => setShowMenu(false)}><p className="px-4 py-2 hover:text-primary transition rounded-md inline-block">Community</p></NavLink>
                         <NavLink to="/proplans" onClick={() => setShowMenu(false)}><p className="px-4 py-2 hover:text-primary transition rounded-md inline-block">Plans</p></NavLink>
                         {!isLoggedIn &&
                             <Button size="lg" onClick={() => { navigate("/login"), setShowMenu(false) }} className='text-lg bg-primary w-full hover:bg-primary/90 text-white px-6 rounded-md py-2 font-semibold '>

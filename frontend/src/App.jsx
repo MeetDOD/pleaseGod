@@ -19,6 +19,10 @@ import Legalscenarios from "./pages/Legalscenarios";
 import Legalbasics from "./pages/Legalbasics";
 import Caseexplorer from "./pages/Caseexplorer";
 import Proplans from "./pages/Proplans";
+import MockInterviewForm from "./AIConsultant/MockInterviewForm";
+import InterviewScreen from "./AIConsultant/InterviewScreen";
+import Questions from "./Community/Questions";
+import ViewQuestion from "./Community/ViewQuestion";
 const App = () => {
   return (
     <Suspense fallback={<Loader />}>
@@ -32,12 +36,21 @@ const App = () => {
             <Route path="/legalbasics" element={<Legalbasics />} />
             <Route path="/caseexplorer" element={<Caseexplorer />} />
             <Route path="/proplans" element={<Proplans />} />
+            <Route path="/community" element={<Questions />} />
             <Route
               path="/login"
               element={
                 <NonAuthenticatedRoute>
                   <UserLogin />
                 </NonAuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/question/:id"
+              element={
+                <AuthenticatedRoute>
+                  <ViewQuestion />
+                </AuthenticatedRoute>
               }
             />
             <Route
@@ -54,6 +67,19 @@ const App = () => {
                 <LegalForm />
               </AuthenticatedRoute>
             } />
+            <Route path="/aiconsultant" element={
+              <AuthenticatedRoute>
+                <MockInterviewForm />
+              </AuthenticatedRoute>
+            } />
+            <Route
+              path="/interviewscreen"
+              element={
+                <AuthenticatedRoute>
+                  <InterviewScreen />
+                </AuthenticatedRoute>
+              }
+            />
             <Route
               path="/legal-documents"
               element={
