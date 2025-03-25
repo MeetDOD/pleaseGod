@@ -15,16 +15,23 @@ import LegalForm from "./Dashboard/LegalForm";
 import LegalDocuments from './components/LegalDocuments';
 import LegalAid from "./Dashboard/LegalAid";
 import LegalAidDetail from "./Dashboard/LegalAidDetail";
+import Legalscenarios from "./pages/Legalscenarios";
+import Legalbasics from "./pages/Legalbasics";
+import Caseexplorer from "./pages/Caseexplorer";
+import Proplans from "./pages/Proplans";
 const App = () => {
   return (
     <Suspense fallback={<Loader />}>
       <BrowserRouter>
         <div className="mx-4 sm:mx-[10%]">
           <Navbar />
-          <AddDetailForm />
           <GoogleTranslate />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/legalscenarios" element={<Legalscenarios />} />
+            <Route path="/legalbasics" element={<Legalbasics />} />
+            <Route path="/caseexplorer" element={<Caseexplorer />} />
+            <Route path="/proplans" element={<Proplans />} />
             <Route
               path="/login"
               element={
@@ -68,14 +75,14 @@ const App = () => {
               element={
                 <AuthenticatedRoute>
                   <LegalAidDetail />
-                </AuthenticatedRoute> 
+                </AuthenticatedRoute>
               }
             />
 
           </Routes>
           <Toaster richColors />
         </div>
-        {/* <Footer /> */}
+        <Footer />
       </BrowserRouter>
     </Suspense>
   );
