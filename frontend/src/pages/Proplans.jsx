@@ -42,7 +42,7 @@ const Proplans = () => {
                         // Payment successful
                         localStorage.setItem('legalFormPayment', 'paid');
                         toast.success("Payment successful!");
-                        navigate('/legal-aid'); // Redirect to legal aid form
+                        navigate('/legalaid'); // Redirect to legal aid form
                     },
                     prefill: {
                         email: localStorage.getItem("userEmail") || "",
@@ -64,10 +64,10 @@ const Proplans = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center">
-                    <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-2">
+                    <h2 className="text-3xl font-bold sm:text-4xl mb-2">
                         Legal Service Plans
                     </h2>
                     <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -77,37 +77,37 @@ const Proplans = () => {
 
                 <div className="mt-12 grid gap-8 lg:grid-cols-3 sm:grid-cols-2">
                     {/* Basic Plan */}
-                    <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                    <div className="rounded-2xl shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300 border" style={{ backgroundColor: `var(--background-color)`, borderColor: `var(--borderColor)` }}>
                         <div className="bg-green-600 p-4">
                             <h3 className="text-xl font-bold text-white text-center">Basic Plan</h3>
                         </div>
                         <div className="p-8">
                             <div className="text-center mb-6">
-                                <p className="text-4xl font-bold text-gray-900">₹500</p>
-                                <p className="text-gray-600 mt-1">One-time consultation</p>
+                                <p className="text-4xl font-bold ">₹500</p>
+                                <p className="text-gray-500 mt-1">One-time consultation</p>
                             </div>
-                            
+
                             <ul className="space-y-4 mb-8">
-                                <li className="flex items-center text-gray-600">
+                                <li className="flex items-center text-gray-500">
                                     <svg className="h-5 w-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                     Basic legal consultation
                                 </li>
-                                <li className="flex items-center text-gray-600">
+                                <li className="flex items-center text-gray-500">
                                     <svg className="h-5 w-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                     Document review
                                 </li>
-                                <li className="flex items-center text-gray-600">
+                                <li className="flex items-center text-gray-500">
                                     <svg className="h-5 w-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                     24/7 Support
                                 </li>
                             </ul>
-                            
+
                             <button
                                 onClick={() => handlePayment(500, 'Basic')}
                                 disabled={isLoading}
@@ -127,7 +127,7 @@ const Proplans = () => {
                     </div>
 
                     {/* Standard Plan */}
-                    <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 border-2 border-green-500">
+                    <div className="rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 border-2 border-green-500">
                         <div className="bg-green-600 p-4 relative">
                             <h3 className="text-xl font-bold text-white text-center">Standard Plan</h3>
                             <div className="absolute top-0 right-0 bg-yellow-400 text-xs font-bold px-2 py-1 rounded-bl-lg text-gray-900">
@@ -136,31 +136,31 @@ const Proplans = () => {
                         </div>
                         <div className="p-8">
                             <div className="text-center mb-6">
-                                <p className="text-4xl font-bold text-gray-900">₹1,000</p>
-                                <p className="text-gray-600 mt-1">Monthly subscription</p>
+                                <p className="text-4xl font-bold">₹1,000</p>
+                                <p className="text-gray-500 mt-1">Monthly subscription</p>
                             </div>
-                            
+
                             <ul className="space-y-4 mb-8">
-                                <li className="flex items-center text-gray-600">
+                                <li className="flex items-center text-gray-500">
                                     <svg className="h-5 w-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                     All Basic Plan features
                                 </li>
-                                <li className="flex items-center text-gray-600">
+                                <li className="flex items-center text-gray-500">
                                     <svg className="h-5 w-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                     Priority Support
                                 </li>
-                                <li className="flex items-center text-gray-600">
+                                <li className="flex items-center text-gray-500">
                                     <svg className="h-5 w-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                     Monthly Legal Advisory
                                 </li>
                             </ul>
-                            
+
                             <button
                                 onClick={() => handlePayment(1000, 'Standard')}
                                 disabled={isLoading}
@@ -180,37 +180,37 @@ const Proplans = () => {
                     </div>
 
                     {/* Premium Plan */}
-                    <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                    <div className="rounded-2xl shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300 border" style={{ backgroundColor: `var(--background-color)`, borderColor: `var(--borderColor)` }}>
                         <div className="bg-green-600 p-4">
                             <h3 className="text-xl font-bold text-white text-center">Premium Plan</h3>
                         </div>
                         <div className="p-8">
                             <div className="text-center mb-6">
-                                <p className="text-4xl font-bold text-gray-900">₹1,500</p>
-                                <p className="text-gray-600 mt-1">Monthly subscription</p>
+                                <p className="text-4xl font-bold">₹1,500</p>
+                                <p className="text-gray-500 mt-1">Monthly subscription</p>
                             </div>
-                            
+
                             <ul className="space-y-4 mb-8">
-                                <li className="flex items-center text-gray-600">
+                                <li className="flex items-center text-gray-500">
                                     <svg className="h-5 w-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                     All Standard Plan features
                                 </li>
-                                <li className="flex items-center text-gray-600">
+                                <li className="flex items-center text-gray-500">
                                     <svg className="h-5 w-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                     Dedicated Legal Advisor
                                 </li>
-                                <li className="flex items-center text-gray-600">
+                                <li className="flex items-center text-gray-500">
                                     <svg className="h-5 w-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                     Unlimited Consultations
                                 </li>
                             </ul>
-                            
+
                             <button
                                 onClick={() => handlePayment(1500, 'Premium')}
                                 disabled={isLoading}

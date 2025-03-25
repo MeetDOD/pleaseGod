@@ -9,12 +9,14 @@ import { tokenState, userState } from '@/store/auth';
 import { useSetRecoilState } from 'recoil';
 import { toast } from 'sonner';
 import { FaBandAid, FaFolderOpen } from "react-icons/fa";
+import { MdSettingsVoice } from "react-icons/md";
 
 const data = {
     navMain: [
         { title: 'Dashboard', url: '/dashboard', icon: MdSpaceDashboard },
         { title: 'Legal Aid', url: '/legalaid', icon: FaBandAid },
-        { title: 'My Legal Aids', url: '/mylegalaids', icon: FaFolderOpen }
+        { title: 'My Legal Aids', url: '/mylegalaids', icon: FaFolderOpen },
+        { title: 'AI Consultant', url: '/aiconsultant', icon: MdSettingsVoice }
     ],
 };
 

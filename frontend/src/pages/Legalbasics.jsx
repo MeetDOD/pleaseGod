@@ -190,14 +190,14 @@ const Modal = ({ isOpen, onClose, category }) => {
                 onClose();
             }
         };
-    
+
         const disableScroll = () => {
             document.body.style.position = 'fixed'; // Fixes body in place
             document.body.style.top = `-${window.scrollY}px`; // Prevents jump on close
             document.body.style.width = '100%';
             document.body.style.overflow = 'hidden'; // Disable scrolling
         };
-    
+
         const enableScroll = () => {
             const scrollY = document.body.style.top;
             document.body.style.position = '';
@@ -206,7 +206,7 @@ const Modal = ({ isOpen, onClose, category }) => {
             document.body.style.overflow = '';
             window.scrollTo(0, parseInt(scrollY || '0') * -1); // Restore scroll position
         };
-    
+
         if (isOpen) {
             disableScroll();
             window.addEventListener('keydown', handleEscape);
@@ -214,15 +214,15 @@ const Modal = ({ isOpen, onClose, category }) => {
             enableScroll();
             window.removeEventListener('keydown', handleEscape);
         }
-    
+
         return () => {
             enableScroll(); // Cleanup
             window.removeEventListener('keydown', handleEscape);
         };
     }, [isOpen, onClose]);
-    
 
-    
+
+
     return (
         <AnimatePresence>
             {isOpen && (
@@ -254,12 +254,12 @@ const Modal = ({ isOpen, onClose, category }) => {
                                 <FaTimes size={24} />
                             </button>
                         </div>
-                        
+
                         <div className="space-y-6">
                             <p className="text-gray-600 dark:text-gray-300">
                                 {category.details.description}
                             </p>
-                            
+
                             <div>
                                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
                                     Key Points
@@ -270,7 +270,7 @@ const Modal = ({ isOpen, onClose, category }) => {
                                     ))}
                                 </ul>
                             </div>
-                            
+
                             <div>
                                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
                                     Relevant Laws
@@ -407,7 +407,7 @@ const Legalbasics = () => {
 
                 {/* Action Button - Matching Hero.jsx style */}
                 <div className="text-center mt-12">
-                    <Button 
+                    <Button
                         onClick={() => navigate('/dashboard')}
                         className="px-8 py-6 shadow-md"
                     >

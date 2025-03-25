@@ -66,18 +66,17 @@ const scenarios = [
     fullDesc: `Forged land documents violate IPC Section 420. Victims can file criminal and civil cases to cancel deeds. Evidence such as original records, registry logs, and witness testimony are needed. Legal notices should be served before approaching the court.`,
     icon: Gavel
   }
-  // Add more scenarios here up to 18 by duplicating and changing the content as needed
 ];
 
 const LegalScenarios = () => {
   const [selected, setSelected] = useState(null);
 
   return (
-    <div className="p-6 min-h-screen bg-transparent-100 dark:bg-gray-900">
-      <h1 className="text-4xl md:text-5xl font-bold mb-3 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+    <div className="p-6 min-h-screen bg-transparent-100">
+      <h1 className="text-4xl md:text-4xl font-bold mb-3 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
         Legal Scenarios
       </h1>
-      <h2 className="text-xl md:text-2xl font-medium mb-8 text-white text-center">
+      <h2 className="text-lg text-gray-500 md:text-xl font-medium mb-20 text-center">
         Explore common legal situations and understand your rights.
       </h2>
 
@@ -86,17 +85,17 @@ const LegalScenarios = () => {
           <motion.div
             key={id}
             onClick={() => setSelected(scenarios.find((s) => s.id === id))}
-            className="bg-white dark:bg-slate-800 rounded-2xl p-5 shadow-lg hover:shadow-xl cursor-pointer transition-all h-60"
+            className="rounded-2xl p-5 shadow-md hover:shadow-xl cursor-pointer transition-all h-60"
             whileHover={{ scale: 1.03 }}
           >
             <div className="flex flex-col items-center mb-4">
-              <Icon className="w-12 h-12 text-blue-600 -600 mb-2" />
-              <h3 className="text-lg font-semibold text-center text-gray-900 dark:text-white">
+              <Icon className="w-12 h-12 text-primary mb-2" />
+              <h3 className="text-lg font-semibold text-center">
                 {title}
               </h3>
             </div>
 
-            <p className="text-sm text-gray-600 dark:text-gray-300">
+            <p className="text-sm text-gray-500 ">
               {shortDesc}
             </p>
           </motion.div>
@@ -112,7 +111,8 @@ const LegalScenarios = () => {
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-xl w-full p-6 relative"
+              className="rounded-xl shadow-2xl max-w-xl w-full p-10 relative border"
+              style={{ backgroundColor: `var(--background-color)`, borderColor: `var(--borderColor)` }}
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}
@@ -123,10 +123,10 @@ const LegalScenarios = () => {
               >
                 &times;
               </button>
-              <h2 className="text-2xl font-bold text-black dark:text-white mb-4 opacity-90">
+              <h2 className="text-2xl font-bold mb-4 opacity-90">
                 {selected.title}
               </h2>
-              <p className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap">
+              <p className="whitespace-pre-wrap text-justify">
                 {selected.fullDesc}
               </p>
             </motion.div>
