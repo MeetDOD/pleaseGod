@@ -13,7 +13,8 @@ import { FaBandAid } from "react-icons/fa";
 const data = {
     navMain: [
         { title: 'Dashboard', url: '/dashboard', icon: MdSpaceDashboard },
-        { title: 'Legal Aid', url: '/legalaid', icon: FaBandAid }
+        { title: 'Legal Aid', url: '/legalaid', icon: FaBandAid },
+        { title: 'Legal Assistant', url: '/legal-assistant', icon: MdSpaceDashboard }
     ],
 };
 

@@ -70,8 +70,9 @@ const App = () => {
                 </AuthenticatedRoute>
               }
             />
+
             <Route
-              path="/legal-aid/:id"
+              path="/legal-assistant/:id"
               element={
                 <AuthenticatedRoute>
                   <LegalAidDetail />
