@@ -72,26 +72,61 @@ const LegalAid = () => {
                         <div className="mt-4">
                             <h3 className="text-lg font-semibold mb-2">Legal Resources</h3>
                             <ul className="list-disc pl-5 space-y-2 mb-4">
-                                {doc.legal_resources[0]
-                                    .replace(/[\[\]]/g, '')
-                                    .split(',')
-                                    .map((resource, index) => (
-                                        <li key={index}>
-                                            <a
-                                                href={resource.trim()}
+                                {doc.legal_resources[0].includes('[Collection]') ? (
+                                    <>
+                                        <li>
+                                            <a 
+                                                href="https://blog.ipleaders.in/how-to-evict-a-tenant-in-india/"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="text-blue-600 hover:text-blue-800 hover:underline"
                                             >
-                                                {resource.trim()}
+                                                How to Evict a Tenant in India - Complete Guide
                                             </a>
                                         </li>
-                                    ))}
+                                        <li>
+                                            <a 
+                                                href="https://www.investopedia.com/terms/e/eviction.asp"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-600 hover:text-blue-800 hover:underline"
+                                            >
+                                                Understanding Eviction Process - Investopedia
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a 
+                                                href="https://lawbhoomi.com/eviction-of-a-tenant-in-india-grounds-process-and-more/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-600 hover:text-blue-800 hover:underline"
+                                            >
+                                                Eviction of a Tenant in India: Grounds, Process and More
+                                            </a>
+                                        </li>
+                                    </>
+                                ) : (
+                                    doc.legal_resources[0]
+                                        .replace(/[\[\]]/g, '')
+                                        .split(',')
+                                        .map((resource, index) => (
+                                            <li key={index}>
+                                                <a 
+                                                    href={resource.trim()}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                                                >
+                                                    {resource.trim()}
+                                                </a>
+                                            </li>
+                                        ))
+                                )}
                             </ul>
                             <div className="flex justify-between items-center">
-                                <Button
+                                <Button 
                                     variant="outline"
-                                    onClick={() => navigate(`/legal-assistant/${doc._id}`)}
+                                    onClick={() => navigate(`/legal-aid/${doc._id}`)}
                                 >
                                     View Details
                                 </Button>
