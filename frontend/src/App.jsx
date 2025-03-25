@@ -26,6 +26,7 @@ import InterviewScreen from "./AIConsultant/InterviewScreen";
 import Questions from "./Community/Questions";
 import ViewQuestion from "./Community/ViewQuestion";
 import Allpodcast from "./AIPodcast/ALLPodcast";
+import Maps from "./Dashboard/Maps";
 const App = () => {
   return (
     <Suspense fallback={<Loader />}>
@@ -33,7 +34,7 @@ const App = () => {
         <div className="mx-4 sm:mx-[10%]">
           <Navbar />
           <GoogleTranslate />
-          
+
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/legalscenarios" element={<Legalscenarios />} />
@@ -62,6 +63,14 @@ const App = () => {
               element={
                 <AuthenticatedRoute>
                   <ViewQuestion />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/map"
+              element={
+                <AuthenticatedRoute>
+                  <Maps />
                 </AuthenticatedRoute>
               }
             />
@@ -122,7 +131,7 @@ const App = () => {
               element={
                 <AuthenticatedRoute>
                   <News />
-                </AuthenticatedRoute> 
+                </AuthenticatedRoute>
               }
             />
             <Route

@@ -8,9 +8,10 @@ import { Separator } from "@/components/ui/separator"
 import { tokenState, userState } from '@/store/auth';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { toast } from 'sonner';
-import { FaBandAid, FaFolderOpen, FaNewspaper, FaVideo, FaVideo } from "react-icons/fa";
+import { FaBandAid, FaFolderOpen, FaNewspaper, FaVideo } from "react-icons/fa";
 import { MdSettingsVoice } from "react-icons/md";
 import { Crown } from 'lucide-react';
+import { FaMapMarked } from "react-icons/fa";
 
 const data = {
     navMain: [
@@ -21,6 +22,7 @@ const data = {
         { title: 'AI Podcast', url: '/podcast', icon: MdSettingsVoice },
         { title: 'News', url: '/news', icon: FaNewspaper },
         { title: 'Legal Videos', url: '/legalvideos', icon: FaVideo },
+        { title: 'Search Map', url: '/map', icon: FaMapMarked },
     ],
 };
 
@@ -38,7 +40,7 @@ const AppSidebar = () => {
         navigate("/");
     };
 
-    const proFeatures = ['Legal Aid', 'AI Consultant'];
+    const proFeatures = ['Legal Aid', 'AI Consultant', 'AI Podcast'];
 
     return (
         <Sidebar className="w-[275px] min-h-screen shadow-md" style={{ color: `var(--text-color)`, borderColor: `var(--borderColor)` }}>
@@ -70,7 +72,7 @@ const AppSidebar = () => {
 
                                     <div className="text-sm font-semibold flex items-center">
                                         {item.title}
-                                        {user.isPaid && isPro && (
+                                        {user?.isPaid && isPro && (
                                             <Crown className="text-yellow-400 ml-2" size={18} />
                                         )}
                                     </div>

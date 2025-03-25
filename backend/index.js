@@ -21,8 +21,6 @@ const voteRoutes = require("./Routes/community/votes.route.js");
 
 const podcastRoutes = require("./Routes/podcast.route.js");
 
-const podcastRoutes = require("./Routes/podcast.route.js");
-
 const serpRouter = require("./Routes/serp.route");
 const port = process.env.PORT || 4000;
 

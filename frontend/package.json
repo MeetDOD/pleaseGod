@@ -11,6 +11,7 @@
 		"postinstall": "cp node_modules/pdfjs-dist/build/pdf.worker.mjs public/"
 	},
 	"dependencies": {
+		"@babel/polyfill": "^7.12.1",
 		"@cashfreepayments/cashfree-js": "^1.0.5",
 		"@codemirror/lang-javascript": "^6.2.3",
 		"@google/generative-ai": "^0.20.0",
@@ -27,6 +28,7 @@
 		"@radix-ui/react-slot": "^1.1.0",
 		"@radix-ui/react-tabs": "^1.1.1",
 		"@radix-ui/react-tooltip": "^1.1.4",
+		"@react-google-maps/api": "^2.20.6",
 		"@react-oauth/google": "^0.12.1",
 		"@react-three/drei": "^9.121.5",
 		"@react-three/fiber": "^8.17.14",
@@ -61,6 +63,7 @@
 		"react-router-dom": "^6.26.2",
 		"react-simple-chatbot": "^0.6.1",
 		"react-simple-wysiwyg": "^3.1.2",
+		"react-speech-recognition": "^4.0.0",
 		"react-split": "^2.0.14",
 		"react-syntax-highlighter": "^15.6.1",
 		"react-vertical-timeline-component": "^3.5.3",
