@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/card';
+import { Card, CardDescription } from '@/components/ui/card';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import AppSidebar from './AppSidebar';
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
 const LegalAid = () => {
     const [legalDocs, setLegalDocs] = useState([]);
@@ -62,47 +63,82 @@ const LegalAid = () => {
         }
 
         return (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-5">
                 {legalDocs.map((doc) => (
-                    <Card key={doc._id} className="p-6 shadow-lg hover:shadow-xl transition-shadow">
+                    <Card key={doc._id} className="p-6 shadow-sm hover:shadow-md border" style={{ backgroundColor: `var(--background-color)`, borderColor: `var(--borderColor)` }}>
                         <h2 className="text-xl font-bold mb-4 text-primary">Legal Recommendation</h2>
-                        <p className="text-gray-700 leading-relaxed line-clamp-3">
+                        <CardDescription className="leading-relaxed line-clamp-3">
                             {doc.final_recommendation}
-                        </p>
+                        </CardDescription>
                         <div className="mt-4">
-                            <h3 className="text-lg font-semibold mb-2">Legal Resources</h3>
+                            <h3 className="text-lg font-semibold text-primary mb-2">Legal Resources</h3>
                             <ul className="list-disc pl-5 space-y-2 mb-4">
-                                {doc.legal_resources[0]
-                                    .replace(/[\[\]]/g, '')
-                                    .split(',')
-                                    .map((resource, index) => (
-                                        <li key={index}>
+                                {doc.legal_resources[0].includes('[Collection]') ? (
+                                    <>
+                                        <li className='text-blue-600 hover:text-blue-800 hover:underline'>
                                             <a
-                                                href={resource.trim()}
+                                                href="https://blog.ipleaders.in/how-to-evict-a-tenant-in-india/"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="text-blue-600 hover:text-blue-800 hover:underline"
                                             >
-                                                {resource.trim()}
+                                                How to Evict a Tenant in India - Complete Guide
                                             </a>
                                         </li>
-                                    ))}
+                                        <li className='text-blue-600 hover:text-blue-800 hover:underline'>
+                                            <a
+                                                href="https://www.investopedia.com/terms/e/eviction.asp"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-600 hover:text-blue-800 hover:underline"
+                                            >
+                                                Understanding Eviction Process - Investopedia
+                                            </a>
+                                        </li>
+                                        <li className='text-blue-600 hover:text-blue-800 hover:underline'>
+                                            <a
+                                                href="https://lawbhoomi.com/eviction-of-a-tenant-in-india-grounds-process-and-more/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-600 hover:text-blue-800 hover:underline"
+                                            >
+                                                Eviction of a Tenant in India: Grounds, Process and More
+                                            </a>
+                                        </li>
+                                    </>
+                                ) : (
+                                    doc.legal_resources[0]
+                                        .replace(/[\[\]]/g, '')
+                                        .split(',')
+                                        .map((resource, index) => (
+                                            <li key={index}>
+                                                <a
+                                                    href={resource.trim()}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                                                >
+                                                    {resource.trim()}
+                                                </a>
+                                            </li>
+                                        ))
+                                )}
                             </ul>
                             <div className="flex justify-between items-center">
                                 <Button
-                                    variant="outline"
-                                    onClick={() => navigate(`/legal-assistant/${doc._id}`)}
+                                    onClick={() => navigate(`/mylegalaids/${doc._id}`)}
                                 >
                                     View Details
                                 </Button>
-                                <span className="text-sm text-gray-500">
+                                <Badge className="text-sm ">
                                     ID: {doc._id.slice(-6)}
-                                </span>
+                                </Badge>
                             </div>
                         </div>
                     </Card>
-                ))}
-            </div>
+                ))
+                }
+            </div >
         );
     };
 

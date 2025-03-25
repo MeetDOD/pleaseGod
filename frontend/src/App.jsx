@@ -63,7 +63,7 @@ const App = () => {
               }
             />
             <Route
-              path="/legal-assistant"
+              path="/mylegalaids"
               element={
                 <AuthenticatedRoute>
                   <LegalAid />
@@ -72,7 +72,7 @@ const App = () => {
             />
 
             <Route
-              path="/legal-assistant/:id"
+              path="/mylegalaids/:id"
               element={
                 <AuthenticatedRoute>
                   <LegalAidDetail />
