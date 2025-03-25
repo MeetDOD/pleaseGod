@@ -23,6 +23,7 @@ exports.submitLegalCase = async (req, res) => {
 
         console.log('Request body:', req.body);
 
+        
         // Basic validation
         if (!fullName || !email || !phone || !legalIssue || !caseDetails) {
             return res.status(400).json({ 
@@ -77,6 +78,8 @@ exports.submitLegalCase = async (req, res) => {
                 documentTextLength: documentText ? documentText.length : 0
             }
         });
+        user.trialCount++;
+        await user.save();
     } catch (error) {
         console.error('Error processing submission:', error);
         res.status(500).json({ 

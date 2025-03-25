@@ -157,6 +157,29 @@ const LegalForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Call the API to check trial count
+        const token = localStorage.getItem("token");
+        if (token) {
+            try {
+                const response = await axios.get(`${API_URL}/api/user/trial-count`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.data.trialCount > 3) {
+                    // Show popup message
+                    toast.error("Trial count exceeded. Please pay to continue.");
+                    navigate('/proplans'); // Redirect to pro plans
+                    return; // Exit the function
+                }
+            } catch (error) {
+                console.error('Error checking trial count:', error);
+                toast.error("Error checking trial count. Please try again.");
+                return; // Exit the function
+            }
+        }
+
         if (validateForm()) {
             setIsSubmitting(true);
             setSubmitStatus(null);
@@ -291,58 +314,52 @@ const LegalForm = () => {
     };
 
     // Payment gateway component
-    const PaymentGateway = () => (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-green-50 to-green-100">
-            <div className="bg-white p-8 rounded-2xl shadow-lg max-w-md w-full">
-                <h2 className="text-2xl font-bold text-center text-primary mb-6">Access Legal Form</h2>
-                <div className="text-center mb-6">
-                    <div className="bg-green-100 rounded-full p-4 mx-auto w-16 h-16 mb-4">
-                        <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </div>
-                    <p className="text-gray-600 mb-4">
-                        To access the legal form, please pay a processing fee of ₹500
-                    </p>
-                    <div className="text-sm text-gray-500 mb-6">
-                        This fee includes:
-                        <ul className="mt-2 space-y-1">
-                            <li>• Form processing</li>
-                            <li>• Initial legal review</li>
-                            <li>• Document verification</li>
-                        </ul>
-                    </div>
-                </div>
-                <button
-                    onClick={handlePayment}
-                    disabled={isLoading}
-                    className="w-full bg-green-600 text-white py-3 rounded-xl font-medium hover:bg-green-700 transition-colors duration-200 disabled:bg-green-400"
-                >
-                    {isLoading ? (
-                        <span className="flex items-center justify-center">
-                            <svg className="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                            </svg>
-                            Processing...
-                        </span>
-                    ) : (
-                        "Pay ₹500 to Continue"
-                    )}
-                </button>
-            </div>
-        </div>
-    );
 
     // Check payment status on component mount
     useEffect(() => {
         const paymentStatus = localStorage.getItem('legalFormPayment');
         if (paymentStatus !== 'paid') {
             // navigate('/proplans');
-            setIsPaid(true);
+            setIsPaid(false);
         } else {
             setIsPaid(true);
         }
+    }, [navigate]);
+
+    useEffect(() => {
+        const checkPaymentAndTrialCount = async () => {
+            const token = localStorage.getItem("token");
+            if (token) {
+                try {
+                    // First, check if the user has paid
+                    const paymentResponse = await axios.get(`${API_URL}/api/user/is-paid`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                    if (!paymentResponse.data.isPaid) {
+                        // If not paid, check the trial count
+                        const trialResponse = await axios.get(`${API_URL}/api/user/trial-count`, {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+
+                        if (trialResponse.data.trialCount > 5) {
+                            // Show popup message
+                            toast.error("Please upgrade your plan.");
+                            navigate('/proplans'); // Redirect to pro plans
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error checking payment or trial count:', error);
+                    toast.error("Error checking payment or trial count. Please try again.");
+                }
+            }
+        };
+
+        checkPaymentAndTrialCount();
     }, [navigate]);
 
     // If not paid, don't render anything (useEffect will handle redirect)

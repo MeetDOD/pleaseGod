@@ -41,6 +41,7 @@ app.use("/api/answers", answerRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/vote", voteRoutes);
 
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

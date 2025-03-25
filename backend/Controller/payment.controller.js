@@ -24,6 +24,9 @@ const createOrder = async (req, res) => {
 			currency,
 			receipt: "pavanrasal4@gmail.com",
 		});
+		const user = req.user;
+		user.isPaid = true;
+		await user.save();
 
 		return res.status(200).json({
 			success: true,
@@ -39,6 +42,7 @@ const createOrder = async (req, res) => {
 			success: false,
 			message: error.message,
 		});
+
 	}
 };
 

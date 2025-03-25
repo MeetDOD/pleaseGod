@@ -37,6 +37,14 @@ const userSchema = new mongoose.Schema(
     address: {
       type: String,
     },
+    isPaid: {
+      type: Boolean,
+      default: false,
+    },
+    trialCount: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

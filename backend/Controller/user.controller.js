@@ -188,10 +188,29 @@ const getuserbyid = async (req, res) => {
   }
 };
 
+const getTrialCount = async (req, res) => {
+  const user = req.user;
+  res.status(200).json({ trialCount: user.trialCount });
+};
+
+const getIsPaid = async (req, res) => {
+  const user = req.user;
+  res.status(200).json({ isPaid: user.isPaid });
+};
+
+const updateIsPaid = async (req, res) => {
+  const user = req.user;
+  user.isPaid = true;
+  await user.save();
+  res.status(200).json({ message: "User updated successfully", isPaid: user.isPaid });
+};
 module.exports = {
   register,
   verifyOTP,
   login,
   getalluser,
   getuserbyid,
+  getTrialCount,
+  getIsPaid,
+  updateIsPaid,
 };

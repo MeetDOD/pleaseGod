@@ -1,0 +1,101 @@
+CaseID,CaseType,DurationDays,ComplexityScore,FilingDate,JudgmentDate,CourtLevel,Region,ClaimAmount,SettlementAmount,LegalRepresentation,EvidenceScore,SettlementType,RiskLevel
+CT001,Wage Theft,90,3,2023-01-10,2023-04-10,District Court,Mumbai,50000,45000,Yes,4,Settlement,Medium
+CT002,Wage Theft,110,2,2023-02-15,2023-06-05,District Court,Delhi,60000,55000,No,3,Out-of-Court Settlement,High
+CT003,Wage Theft,95,3,2023-03-01,2023-06-05,High Court,Mumbai,55000,50000,Yes,4,Judgment,Medium
+CT004,Wage Theft,80,2,2023-01-20,2023-04-10,District Court,Bangalore,45000,40000,Yes,3,Settlement,Low
+CT005,Wage Theft,100,3,2023-02-05,2023-05-16,District Court,Chennai,52000,50000,No,4,Settlement,Medium
+CT006,Wage Theft,120,4,2023-03-10,2023-07-08,High Court,Hyderabad,75000,70000,Yes,5,Judgment,High
+CT007,Wage Theft,85,2,2023-01-25,2023-04-20,District Court,Pune,47000,43000,Yes,3,Settlement,Low
+CT008,Wage Theft,105,3,2023-02-18,2023-06-03,High Court,Mumbai,58000,54000,No,4,Out-of-Court Settlement,Medium
+CT009,Wage Theft,75,1,2023-01-05,2023-03-21,District Court,Delhi,35000,33000,Yes,2,Settlement,Low
+CT010,Wage Theft,130,4,2023-03-20,2023-07-18,High Court,Bangalore,80000,75000,No,5,Judgment,High
+CT011,Wage Theft,92,3,2023-01-12,2023-04-14,District Court,Chennai,51000,48000,Yes,4,Settlement,Medium
+CT012,Wage Theft,97,2,2023-02-02,2023-05-09,District Court,Mumbai,48000,45000,Yes,3,Settlement,Medium
+CT013,Wage Theft,112,3,2023-02-20,2023-06-03,High Court,Delhi,63000,60000,No,4,Out-of-Court Settlement,Medium
+CT014,Wage Theft,78,2,2023-01-28,2023-04-16,District Court,Pune,43000,40000,Yes,3,Settlement,Low
+CT015,Wage Theft,108,3,2023-02-10,2023-05-29,District Court,Chennai,59000,56000,No,4,Judgment,Medium
+CT016,Wage Theft,125,4,2023-03-05,2023-06-09,High Court,Hyderabad,72000,70000,Yes,5,Settlement,High
+CT017,Wage Theft,85,2,2023-01-22,2023-04-17,District Court,Mumbai,41000,39000,Yes,3,Settlement,Low
+CT018,Wage Theft,105,3,2023-02-15,2023-05-31,District Court,Delhi,60000,57000,No,4,Judgment,Medium
+CT019,Wage Theft,70,1,2023-01-08,2023-03-19,District Court,Bangalore,34000,32000,Yes,2,Settlement,Low
+CT020,Wage Theft,135,4,2023-03-15,2023-07-09,High Court,Chennai,82000,80000,No,5,Out-of-Court Settlement,High
+CT021,Wage Theft,92,3,2023-01-14,2023-04-15,District Court,Hyderabad,51000,48000,Yes,4,Settlement,Medium
+CT022,Wage Theft,97,2,2023-02-04,2023-05-11,District Court,Pune,48000,45000,No,3,Settlement,Medium
+CT023,Wage Theft,112,3,2023-02-22,2023-06-04,High Court,Mumbai,63000,60000,Yes,4,Judgment,Medium
+CT024,Wage Theft,78,2,2023-01-30,2023-04-17,District Court,Delhi,44000,41000,Yes,3,Settlement,Low
+CT025,Wage Theft,108,3,2023-02-12,2023-05-31,District Court,Bangalore,59000,56000,No,4,Settlement,Medium
+CT026,Eviction,120,4,2023-01-15,2023-05-16,District Court,Mumbai,75000,70000,Yes,4,Settlement,High
+CT027,Eviction,135,5,2023-02-20,2023-07-05,High Court,Delhi,90000,85000,No,5,Judgment,High
+CT028,Eviction,110,3,2023-01-25,2023-05-05,District Court,Bangalore,68000,64000,Yes,4,Settlement,Medium
+CT029,Eviction,140,4,2023-02-10,2023-06-20,High Court,Chennai,80000,76000,No,4,Out-of-Court Settlement,High
+CT030,Eviction,125,4,2023-01-30,2023-06-04,District Court,Hyderabad,77000,73000,Yes,4,Settlement,Medium
+CT031,Eviction,130,5,2023-02-25,2023-06-28,High Court,Pune,85000,80000,No,5,Judgment,High
+CT032,Eviction,115,3,2023-01-20,2023-05-15,District Court,Mumbai,69000,66000,Yes,4,Settlement,Medium
+CT033,Eviction,145,4,2023-02-05,2023-06-20,High Court,Delhi,81000,78000,No,4,Settlement,High
+CT034,Eviction,150,5,2023-03-01,2023-07-29,High Court,Bangalore,95000,92000,Yes,5,Judgment,High
+CT035,Eviction,120,4,2023-01-18,2023-05-16,District Court,Chennai,78000,75000,Yes,4,Settlement,Medium
+CT036,Eviction,138,5,2023-02-15,2023-06-14,High Court,Hyderabad,88000,84000,No,5,Out-of-Court Settlement,High
+CT037,Eviction,128,4,2023-01-28,2023-05-05,District Court,Pune,76000,73000,Yes,4,Settlement,Medium
+CT038,Eviction,142,5,2023-02-20,2023-06-23,High Court,Mumbai,92000,89000,No,5,Judgment,High
+CT039,Eviction,118,3,2023-01-22,2023-05-19,District Court,Delhi,70000,67000,Yes,3,Settlement,Medium
+CT040,Eviction,155,5,2023-03-05,2023-08-07,High Court,Bangalore,98000,95000,No,5,Out-of-Court Settlement,High
+CT041,Eviction,130,4,2023-01-16,2023-05-16,District Court,Chennai,80000,77000,Yes,4,Settlement,Medium
+CT042,Eviction,135,4,2023-02-10,2023-06-16,District Court,Hyderabad,82000,79000,No,4,Judgment,Medium
+CT043,Eviction,120,3,2023-01-12,2023-05-12,District Court,Pune,71000,68000,Yes,3,Settlement,Low
+CT044,Eviction,150,5,2023-03-01,2023-07-30,High Court,Mumbai,94000,91000,No,5,Out-of-Court Settlement,High
+CT045,Eviction,125,4,2023-01-28,2023-05-33,District Court,Delhi,77000,74000,Yes,4,Settlement,Medium
+CT046,Eviction,140,4,2023-02-15,2023-06-25,High Court,Bangalore,86000,83000,No,4,Settlement,Medium
+CT047,Eviction,132,4,2023-01-20,2023-05-22,District Court,Chennai,83000,80000,Yes,4,Judgment,Medium
+CT048,Eviction,148,5,2023-02-25,2023-07-14,High Court,Hyderabad,97000,93000,No,5,Out-of-Court Settlement,High
+CT049,Eviction,120,3,2023-01-10,2023-05-10,District Court,Pune,72000,69000,Yes,3,Settlement,Low
+CT050,Eviction,138,4,2023-02-05,2023-06-25,High Court,Mumbai,85000,82000,No,4,Judgment,Medium
+CT051,Contract Breach,180,4,2023-01-05,2023-06-04,District Court,Delhi,250000,240000,Yes,4,Settlement,Medium
+CT052,Contract Breach,200,5,2023-02-01,2023-07-21,High Court,Bangalore,300000,290000,No,5,Judgment,High
+CT053,Contract Breach,170,3,2023-01-15,2023-06-05,District Court,Chennai,220000,210000,Yes,3,Settlement,Low
+CT054,Contract Breach,190,4,2023-02-10,2023-07-09,High Court,Hyderabad,260000,250000,No,4,Settlement,Medium
+CT055,Contract Breach,185,4,2023-01-20,2023-07-04,District Court,Pune,240000,230000,Yes,4,Settlement,Medium
+CT056,Contract Breach,210,5,2023-02-15,2023-08-05,High Court,Mumbai,320000,310000,No,5,Judgment,High
+CT057,Contract Breach,175,3,2023-01-25,2023-07-20,District Court,Delhi,230000,220000,Yes,3,Settlement,Low
+CT058,Contract Breach,195,4,2023-02-05,2023-07-29,High Court,Bangalore,270000,260000,No,4,Settlement,Medium
+CT059,Contract Breach,160,3,2023-01-10,2023-06-19,District Court,Chennai,210000,200000,Yes,3,Settlement,Low
+CT060,Contract Breach,220,5,2023-02-20,2023-09-01,High Court,Hyderabad,350000,340000,No,5,Judgment,High
+CT061,Contract Breach,180,4,2023-01-12,2023-06-12,District Court,Pune,255000,245000,Yes,4,Settlement,Medium
+CT062,Contract Breach,185,4,2023-01-25,2023-07-01,District Court,Mumbai,265000,255000,No,4,Judgment,Medium
+CT063,Contract Breach,200,5,2023-02-10,2023-07-30,High Court,Delhi,310000,300000,Yes,5,Settlement,High
+CT064,Contract Breach,170,3,2023-01-20,2023-06-09,District Court,Bangalore,225000,215000,Yes,3,Settlement,Low
+CT065,Contract Breach,190,4,2023-02-01,2023-07-12,High Court,Chennai,280000,270000,No,4,Judgment,Medium
+CT066,Contract Breach,210,5,2023-02-15,2023-08-05,High Court,Hyderabad,330000,320000,Yes,5,Settlement,High
+CT067,Contract Breach,175,3,2023-01-18,2023-07-13,District Court,Pune,235000,225000,No,3,Settlement,Low
+CT068,Contract Breach,195,4,2023-01-30,2023-07-14,High Court,Mumbai,275000,265000,Yes,4,Judgment,Medium
+CT069,Contract Breach,160,3,2023-01-10,2023-06-19,District Court,Delhi,215000,205000,Yes,3,Settlement,Low
+CT070,Contract Breach,220,5,2023-02-20,2023-09-01,High Court,Bangalore,340000,330000,No,5,Judgment,High
+CT071,Contract Breach,180,4,2023-01-12,2023-06-12,District Court,Chennai,260000,250000,Yes,4,Settlement,Medium
+CT072,Contract Breach,185,4,2023-01-25,2023-07-01,District Court,Hyderabad,270000,260000,No,4,Judgment,Medium
+CT073,Contract Breach,200,5,2023-02-10,2023-07-30,High Court,Pune,315000,305000,Yes,5,Settlement,High
+CT074,Contract Breach,170,3,2023-01-20,2023-06-09,District Court,Mumbai,230000,220000,Yes,3,Settlement,Low
+CT075,Contract Breach,190,4,2023-02-01,2023-07-12,High Court,Delhi,285000,275000,No,4,Judgment,Medium
+CT076,Consumer Dispute,45,2,2023-03-01,2023-04-15,District Court,Bangalore,15000,14000,Yes,3,Settlement,Low
+CT077,Consumer Dispute,60,2,2023-03-10,2023-05-09,District Court,Chennai,18000,17000,No,3,Settlement,Low
+CT078,Consumer Dispute,35,1,2023-03-05,2023-04-09,District Court,Hyderabad,12000,11500,Yes,2,Settlement,Low
+CT079,Consumer Dispute,50,2,2023-03-15,2023-04-30,District Court,Pune,16000,15000,Yes,3,Out-of-Court Settlement,Medium
+CT080,Consumer Dispute,55,2,2023-03-20,2023-05-14,District Court,Mumbai,17000,16000,No,3,Settlement,Medium
+CT081,Consumer Dispute,40,1,2023-03-10,2023-04-19,District Court,Delhi,13000,12500,Yes,2,Settlement,Low
+CT082,Consumer Dispute,65,3,2023-03-25,2023-05-29,High Court,Bangalore,20000,19000,No,4,Judgment,Medium
+CT083,Consumer Dispute,70,3,2023-03-30,2023-06-08,High Court,Chennai,21000,20000,Yes,4,Settlement,Medium
+CT084,Consumer Dispute,45,2,2023-03-12,2023-04-26,District Court,Hyderabad,15000,14000,Yes,3,Settlement,Low
+CT085,Consumer Dispute,60,2,2023-03-15,2023-05-14,District Court,Pune,18000,17000,No,3,Out-of-Court Settlement,Medium
+CT086,Consumer Dispute,35,1,2023-03-05,2023-04-09,District Court,Mumbai,12500,12000,Yes,2,Settlement,Low
+CT087,Consumer Dispute,50,2,2023-03-10,2023-04-24,District Court,Delhi,16500,15500,Yes,3,Settlement,Low
+CT088,Consumer Dispute,55,2,2023-03-15,2023-04-29,District Court,Bangalore,17500,16500,No,3,Settlement,Medium
+CT089,Consumer Dispute,40,1,2023-03-08,2023-04-17,District Court,Chennai,13500,13000,Yes,2,Settlement,Low
+CT090,Consumer Dispute,65,3,2023-03-20,2023-05-24,High Court,Hyderabad,20500,19500,No,4,Judgment,Medium
+CT091,Consumer Dispute,70,3,2023-03-25,2023-05-31,High Court,Pune,21500,20500,Yes,4,Settlement,Medium
+CT092,Consumer Dispute,45,2,2023-03-10,2023-04-24,District Court,Mumbai,15500,14500,Yes,3,Settlement,Low
+CT093,Consumer Dispute,60,2,2023-03-15,2023-05-14,District Court,Delhi,18500,17500,No,3,Out-of-Court Settlement,Medium
+CT094,Consumer Dispute,35,1,2023-03-05,2023-04-09,District Court,Bangalore,13000,12500,Yes,2,Settlement,Low
+CT095,Consumer Dispute,50,2,2023-03-10,2023-04-24,District Court,Chennai,16500,15500,Yes,3,Settlement,Low
+CT096,Consumer Dispute,55,2,2023-03-15,2023-04-29,District Court,Hyderabad,17500,16500,No,3,Settlement,Medium
+CT097,Consumer Dispute,40,1,2023-03-08,2023-04-17,District Court,Pune,13500,13000,Yes,2,Settlement,Low
+CT098,Consumer Dispute,65,3,2023-03-20,2023-05-24,High Court,Mumbai,21000,20000,No,4,Judgment,Medium
+CT099,Consumer Dispute,70,3,2023-03-25,2023-05-31,High Court,Delhi,22000,21000,Yes,4,Settlement,Medium
+CT100,Consumer Dispute,45,2,2023-03-10,2023-04-24,District Court,Bangalore,16000,15000,Yes,3,Settlement,Low
