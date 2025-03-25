@@ -13,7 +13,7 @@ const Videos = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/api/serp/youtube`)
+        fetch(`${import.meta.env.VITE_BASE_URL}/api/serp/youtube`)
             .then((res) => res.json())
             .then((data) => {
                 setVideos(data.youtube_results || []);
