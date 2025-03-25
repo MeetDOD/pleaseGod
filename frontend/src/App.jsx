@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound";
 import AddDetailForm from "./home/AddDetailForm";
 import Footer from "./home/Footer";
 import LegalForm from "./components/legalForm/LegalForm";
+import LegalDocuments from './components/LegalDocuments';
 
 const App = () => {
   return (
@@ -42,6 +43,14 @@ const App = () => {
             />
             <Route path="/*" element={<NotFound />} />
             <Route path="/legal-form" element={<LegalForm />} />
+            <Route
+              path="/legal-documents"
+              element={
+                <AuthenticatedRoute>
+                  <LegalDocuments />
+                </AuthenticatedRoute>
+              }
+            />
           </Routes>
           <Toaster richColors />
         </div>
