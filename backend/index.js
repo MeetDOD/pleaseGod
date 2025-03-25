@@ -31,6 +31,7 @@ app.use("/api/form", formRoute);
 app.use('/api/legal', legalDocRoute);
 app.use('/api/payment', paymentRouter);
 
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
