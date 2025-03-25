@@ -13,7 +13,7 @@ const ContactUs = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        document.title = "CAREERINSIGHT | CONTACT US";
+        document.title = "SATYADARSHI | CONTACT US";
     }, []);
 
     const onSubmit = async (event) => {

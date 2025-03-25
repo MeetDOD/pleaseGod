@@ -10,7 +10,7 @@ const Home = () => {
     const { theme } = useTheme();
 
     useEffect(() => {
-        document.title = "CAREERINSIGHT";
+        document.title = "SATYADARSHI";
     }, []);
     return (
         <div>
@@ -23,9 +23,9 @@ const Home = () => {
             <div className="absolute inset-0 -z-10 h-full w-full"><div className="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(37,99,235,0.5)] opacity-50 blur-[80px]"></div></div>
             <Hero />
             <Category />
-            <Features />
-            <WebDetails />
-            <FAQ />
+            {/* <Features /> */}
+            {/* <WebDetails /> */}
+            {/* <FAQ /> */}
         </div>
     )
 }

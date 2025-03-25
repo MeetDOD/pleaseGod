@@ -37,64 +37,6 @@ const userSchema = new mongoose.Schema(
     address: {
       type: String,
     },
-    techstack: {
-      type: [String],
-    },
-    collegename: {
-      type: String,
-    },
-    university: {
-      type: String,
-    },
-    academicyear: {
-      type: Number,
-    },
-    subscribed: {
-      type: Boolean,
-      default: false,
-    },
-    resumebuilder: {
-      type: Number,
-      default: 3,
-    },
-    mockinterview: {
-      type: Number,
-      default: 3,
-    },
-    portfoliobuilder: {
-      type: Number,
-      default: 3,
-    },
-    createcourse: {
-      type: Number,
-      default: 3,
-    },
-    userType: {
-      type: String,
-      default: "student",
-    },
-    portfolioUrl: {
-      type: String,
-      default: null,
-    },
-    role: {
-      type: String,
-      default: "user",
-    },
-    coursemarks: [
-      {
-        course: { type: mongoose.Schema.Types.ObjectId, ref: "Course" },
-        marks: { type: Number },
-      },
-    ],
-    enrolledCourses: [
-      {
-        course: { type: mongoose.Schema.Types.ObjectId, ref: "Course" },
-        enrolledAt: { type: Date, default: Date.now },
-        progress: { type: Number, default: 0 },
-        activeChapterIndex: { type: Number, default: 0 },
-      },
-    ],
   },
   { timestamps: true }
 );

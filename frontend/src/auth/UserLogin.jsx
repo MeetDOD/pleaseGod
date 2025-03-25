@@ -21,7 +21,7 @@ import { tokenState } from "@/store/auth";
 
 
 
-const API_URL = import.meta.env.VITE_BASE_URL  
+const API_URL = import.meta.env.VITE_BASE_URL
 
 const UserLogin = () => {
   const [email, setEmail] = useState("");
@@ -194,12 +194,13 @@ const UserLogin = () => {
           >
             <CardHeader>
               <CardTitle className="font-bold">
-                Welcome <span className="text-primary">User</span>
+                Welcome to <span className="text-primary">User</span>
               </CardTitle>
               <CardDescription>
-                Ready to shape your future? Let's build your career together.
+                Get personalized legal insights, clear guidance, and recommended actions
               </CardDescription>
             </CardHeader>
+
             <CardContent className="space-y-2">
               <div className="space-y-1">
                 <Label htmlFor="email">Email</Label>
@@ -261,13 +262,13 @@ const UserLogin = () => {
           >
             <CardHeader>
               <CardTitle className="font-bold">
-                Join <span className="text-primary">Career Insight</span>
+                Join <span className="text-primary">SATYADARSHI</span>
               </CardTitle>
               <CardDescription>
-                Start building your future today. Create your personalized
-                career journey.
+                Empower yourself with expert legal guidance. Get personalized support
               </CardDescription>
             </CardHeader>
+
             <CardContent className="space-y-2">
               <div className="space-y-1">
                 <Label htmlFor="fullname">Full Name</Label>
@@ -330,9 +331,8 @@ const UserLogin = () => {
                     {timerRunning && (
                       <span className="text-sm">{`Time remaining: ${Math.floor(
                         timer / 60
-                      )}:${
-                        timer % 60 < 10 ? "0" + (timer % 60) : timer % 60
-                      }`}</span>
+                      )}:${timer % 60 < 10 ? "0" + (timer % 60) : timer % 60
+                        }`}</span>
                     )}
                   </div>
                   <div className="gap-2 flex items-center">

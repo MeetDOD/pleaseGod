@@ -61,7 +61,7 @@ const Footer = () => {
             </div>
 
             <div className="text-center text-sm font-semibold mt-7 pt-4 mb-2.5">
-                Made with <span className='text-xl'>💓</span> by careerinsight, Copyright © 2024 All rights reserved by <span className='text-primary font-bold'>Meet, Ramesh & Kashish</span>
+                Made with <span className='text-xl'>💓</span> by SATYADARSHI, Copyright © 2024 All rights reserved by <span className='text-primary font-bold'>Meet, Ramesh & Kashish</span>
             </div>
         </footer>
     );

@@ -43,26 +43,17 @@ const Navbar = () => {
         <div className='flex items-center justify-between text-sm py-4 mb-5 border-b border-primary'>
             <img src={logo} className='w-auto h-16 cursor-pointer' alt='CAREER INSIGHT' onClick={() => navigate("/")} />
             <ul className='hidden md:flex items-center justify-center gap-5 font-medium list-none'>
-                {/* <NavLink to="/">
-                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Home</li>
-                </NavLink> */}
-                <NavLink to="/codingquestions">
-                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Legal Scenarios</li>
+                <NavLink to="/legalscenarios">
+                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Scenarios</li>
                 </NavLink>
-                {/* <NavLink to="/about">
-                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>About</li>
-                </NavLink> */}
-                <NavLink to="/courses">
-                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Legal Basics</li>
+                <NavLink to="/legalbasics">
+                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Basics</li>
                 </NavLink>
-                <NavLink to="/riverflow">
-                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Case Explorer</li>
+                <NavLink to="/caseexplorer">
+                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Explorer</li>
                 </NavLink>
-                <NavLink to="/pricing">
-                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Pro Plans</li>
-                </NavLink>
-                <NavLink to="/leaderboard">
-                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Justice Journey</li>
+                <NavLink to="/proplans">
+                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Plans</li>
                 </NavLink>
             </ul>
             <div className='flex items-center gap-2'>
@@ -93,13 +84,10 @@ const Navbar = () => {
                         <button className='w-7' onClick={() => setShowMenu(false)}><IoIosCloseCircleOutline size={25} /></button>
                     </div>
                     <ul className='flex flex-col items-center gap-2 mt-5 px-5 text-lg font-medium list-none'>
-                        {/* <NavLink to="/" onClick={() => setShowMenu(false)}><p className="px-4 py-2 hover:text-primary transition rounded-md inline-block">Home</p></NavLink> */}
-                        {/* <NavLink to="/about" onClick={() => setShowMenu(false)}><p className="px-4 py-2 hover:text-primary transition rounded-md inline-block">About</p></NavLink> */}
-                        <NavLink to="/courses" onClick={() => setShowMenu(false)}><p className="px-4 py-2 hover:text-primary transition rounded-md inline-block">Courses</p></NavLink>
-                        <NavLink to="/codingquestions" onClick={() => setShowMenu(false)}><p className="px-4 py-2 hover:text-primary transition rounded-md inline-block">Coding</p></NavLink>
-                        <NavLink to="/riverflow" onClick={() => setShowMenu(false)}><p className="px-4 py-2 hover:text-primary transition rounded-md inline-block">Riverflow</p></NavLink>
-                        <NavLink to="/pricing" onClick={() => setShowMenu(false)}><p className="px-4 py-2 hover:text-primary transition rounded-md inline-block">Pricing</p></NavLink>
-                        <NavLink to="/leaderboard" onClick={() => setShowMenu(false)}><p className="px-4 py-2 hover:text-primary transition rounded-md inline-block">Leaderboard</p></NavLink>
+                        <NavLink to="/legalscenarios" onClick={() => setShowMenu(false)}><p className="px-4 py-2 hover:text-primary transition rounded-md inline-block">Scenarios</p></NavLink>
+                        <NavLink to="/legalbasics" onClick={() => setShowMenu(false)}><p className="px-4 py-2 hover:text-primary transition rounded-md inline-block">Basics</p></NavLink>
+                        <NavLink to="/explorer" onClick={() => setShowMenu(false)}><p className="px-4 py-2 hover:text-primary transition rounded-md inline-block">Explorer</p></NavLink>
+                        <NavLink to="/proplans" onClick={() => setShowMenu(false)}><p className="px-4 py-2 hover:text-primary transition rounded-md inline-block">Plans</p></NavLink>
                         {!isLoggedIn &&
                             <Button size="lg" onClick={() => { navigate("/login"), setShowMenu(false) }} className='text-lg bg-primary w-full hover:bg-primary/90 text-white px-6 rounded-md py-2 font-semibold '>
                                 Login / Signup

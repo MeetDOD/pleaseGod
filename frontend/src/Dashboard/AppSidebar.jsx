@@ -8,10 +8,12 @@ import { Separator } from "@/components/ui/separator"
 import { tokenState, userState } from '@/store/auth';
 import { useSetRecoilState } from 'recoil';
 import { toast } from 'sonner';
+import { FaBandAid } from "react-icons/fa";
 
 const data = {
     navMain: [
-        { title: 'Dashboard', url: '/dashboard', icon: MdSpaceDashboard }
+        { title: 'Dashboard', url: '/dashboard', icon: MdSpaceDashboard },
+        { title: 'Legal Aid', url: '/legalaid', icon: FaBandAid }
     ],
 };
 
@@ -31,7 +33,7 @@ const AppSidebar = () => {
         <Sidebar className="w-[275px] min-h-screen shadow-md" style={{ color: `var(--text-color)`, borderColor: `var(--borderColor)` }}>
             <SidebarHeader className="px-4" style={{ backgroundColor: `var(--background-color)` }}>
                 <div className="flex items-center gap-3 justify-center my-1">
-                    <img src={logo} onClick={() => navigate("/")} alt="Logo" className="w-auto h-9 cursor-pointer object-contain" />
+                    <img src={logo} onClick={() => navigate("/")} alt="Logo" className="w-auto h-16 cursor-pointer object-contain" />
                 </div>
             </SidebarHeader>
 

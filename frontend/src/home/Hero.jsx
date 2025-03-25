@@ -24,7 +24,7 @@ const Hero = () => {
     }
 
     return (
-        <div className="overflow-hidden my-20 mb-28">
+        <div className="overflow-hidden my-10 mb-28">
             <div className="absolute inset-0 -z-10 h-full w-full bg-[radial-gradient(100%_50%_at_50%_0%,rgba(124,58,237,0.25)_0,rgba(124,58,237,0)_50%,rgba(124,58,237,0)_100%)]"></div>
             <div className="absolute inset-0 -z-10 h-full w-full">
                 <div className="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(124,58,237,0.5)] opacity-50 blur-[80px]"></div>
@@ -42,31 +42,31 @@ const Hero = () => {
 
                         <div className="hidden lg:flex gap-5 py-5">
                             <div className="flex justify-center gap-2 items-center opacity-90 text-sm">
-                                <FaArrowRight className="opacity-90 -mr-1" /> AI Legal Guidance
+                                <FaArrowRight className="opacity-90 -mr-1" /> AI Guidance
                             </div>
                             <div className="flex justify-center gap-2 items-center opacity-90 text-sm">
-                                <FaArrowRight className="opacity-90 -mr-1" /> Real-Time Case Analysis
+                                <FaArrowRight className="opacity-90 -mr-1" /> RealCase Analysis
                             </div>
                             <div className="flex justify-center gap-2 items-center opacity-90 text-sm">
-                                <FaArrowRight className="opacity-90 -mr-1" /> Free Legal Resources & Templates
+                                <FaArrowRight className="opacity-90 -mr-1" /> Resources & Templates
                             </div>
                         </div>
 
                         <div className="pt-5">
                             <h1 className="pb-4 font-bold tracking-tight text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl sm:leading-snug leading-normal">
-                            Navigate Justice Confidently with <span className='text-primary font-extrabold'>LegalPath AI</span>
+                                Navigate Justice with <span className='text-primary font-extrabold'>Satyadarshi</span>
                             </h1>
                             <p className="text-base sm:text-lg md:text-lg lg:text-xl mt-4 font-semibold opacity-95">
-                            Get step-by-step legal help, personalized for your case—no lawyer needed.
+                                Get step-by-step legal help, personalized for your case—no lawyer needed.
                             </p>
                         </div>
 
                         <div className="pt-10 flex flex-col gap-5 sm:flex-row">
                             <Button onClick={handleExplore} className="px-8 py-6 shadow-md">
-                            Start Your Case
+                                Start Your Case
                             </Button>
                             <Button onClick={handleCourse} variant="ghost" className="px-8 py-6 border shadow-sm" >
-                            Browse Legal Tools
+                                Browse Legal Tools
                             </Button>
                         </div>
                     </div>

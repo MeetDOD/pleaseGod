@@ -145,11 +145,7 @@ const login = async (req, res) => {
       !user.phoneno ||
       !user.gender ||
       !user.dateofbirth ||
-      !user.collegename ||
-      !user.university ||
-      !user.academicyear ||
-      !user.address ||
-      !user.techstack;
+      !user.address 
 
     res.status(200).json({
       message: "Login successful",
@@ -165,112 +161,6 @@ const login = async (req, res) => {
     });
   } catch (error) {
     console.error("Error logging in user:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-};
-
-const updateProfile = async (req, res) => {
-  try {
-    console.log(req.user);
-    const allowedUpdates = [
-      "username",
-      "fullName",
-      "phoneno",
-      "gender",
-      "dateofbirth",
-    ];
-    const updates = {};
-
-    // Only allow specific fields to be updated
-    allowedUpdates.forEach((field) => {
-      if (req.body[field] !== undefined) {
-        updates[field] = req.body[field];
-      }
-    });
-
-    const photo = req.files?.profilePhoto;
-
-    // Find the user by ID and update only allowed fields
-    const user = await User.findByIdAndUpdate(
-      req.user._id,
-      { $set: updates }, // Only update fields that are allowed
-      { new: true } // Return the updated document
-    );
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    // Handle profile photo update if a new photo is provided
-    if (photo) {
-      if (user.photo) {
-        await cloudinary.uploader.destroy(user.photo); // Delete old photo from Cloudinary
-      }
-      const photoUploadResult = await cloudinary.uploader.upload(
-        photo.tempFilePath
-      );
-      user.photo = photoUploadResult.secure_url;
-    }
-
-    await user.save(); // Save the updated user data if needed
-    const userdata = {
-      _id: user._id,
-      email: user.email,
-      fullName: user.fullName,
-      photo: user.photo,
-      gender: user.gender,
-      phoneno: user.phoneno,
-    };
-
-    res
-      .status(200)
-      .json({ message: "Profile updated successfully", user: userdata });
-  } catch (error) {
-    console.error("Error updating profile:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-};
-
-const adduserdetail = async (req, res) => {
-  try {
-    const {
-      phoneno,
-      gender,
-      dateofbirth,
-      collegename,
-      university,
-      academicyear,
-      address,
-      techstack,
-    } = req.body;
-    const user = await User.findById(req.user._id);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    user.phoneno = phoneno;
-    user.gender = gender;
-    user.dateofbirth = dateofbirth;
-    user.collegename = collegename;
-    user.university = university;
-    user.academicyear = academicyear;
-    user.address = address;
-    user.techstack = techstack;
-
-    const userdetails = {
-      phoneno: user.phoneno,
-      email: user.email,
-      fullName: user.fullName,
-      photo: user.photo,
-      _id: user._id,
-    };
-
-    await user.save();
-
-    res
-      .status(200)
-      .json({ message: "Your details added successfully", user: userdetails });
-  } catch (error) {
-    console.error("Error adding extra data:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -302,8 +192,6 @@ module.exports = {
   register,
   verifyOTP,
   login,
-  updateProfile,
   getalluser,
   getuserbyid,
-  adduserdetail,
 };

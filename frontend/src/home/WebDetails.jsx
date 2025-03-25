@@ -26,7 +26,7 @@ const WebDetails = () => {
                         Explore Career Opportunities with <span className="italic">Career Insight</span>
                     </h2>
                     <p className="mt-4 text-base sm:text-lg font-medium">
-                        CareerInsight provides a platform to explore and plan your career path efficiently. Our user-friendly
+                        SATYADARSHI provides a platform to explore and plan your career path efficiently. Our user-friendly
                         dashboard helps you track progress, gain insights, and make informed decisions to achieve your goals.
                     </p>
 

@@ -10,9 +10,8 @@ import NonAuthenticatedRoute from "./routes/NonAuthenticatedRoute";
 import GoogleTranslate from "./services/GoogleTranslator";
 import Loader from "./services/Loader";
 import NotFound from "./pages/NotFound";
-import AddDetailForm from "./home/AddDetailForm";
 import Footer from "./home/Footer";
-import LegalForm from "./components/legalForm/LegalForm";
+import LegalForm from "./Dashboard/LegalForm";
 
 const App = () => {
   return (
@@ -20,7 +19,6 @@ const App = () => {
       <BrowserRouter>
         <div className="mx-4 sm:mx-[10%]">
           <Navbar />
-          <AddDetailForm />
           <GoogleTranslate />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -41,11 +39,15 @@ const App = () => {
               }
             />
             <Route path="/*" element={<NotFound />} />
-            <Route path="/legal-form" element={<LegalForm />} />
+            <Route path="/legalaid" element={
+              <AuthenticatedRoute>
+                <LegalForm />
+              </AuthenticatedRoute>
+            } />
           </Routes>
           <Toaster richColors />
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
     </Suspense>
   );
