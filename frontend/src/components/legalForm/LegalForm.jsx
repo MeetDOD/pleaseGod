@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import * as pdfjsLib from 'pdfjs-dist';
+import 'pdfjs-dist/build/pdf.worker.min.mjs';
+
+// Ensure the worker is loaded
+pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+  'pdfjs-dist/build/pdf.worker.min.mjs', 
+  import.meta.url
+).toString();
 
 const LegalForm = () => {
     const [formData, setFormData] = useState({
@@ -12,13 +20,13 @@ const LegalForm = () => {
     });
     
     const [documentFile, setDocumentFile] = useState(null);
+    const [extractedText, setExtractedText] = useState('');
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null);
     const [caseReference, setCaseReference] = useState('');
     const [responseDetails, setResponseDetails] = useState(null);
-    
-    const validateForm = () => {
+        const validateForm = () => {
         const newErrors = {};
         
         // Full Name validation
@@ -74,9 +82,45 @@ const LegalForm = () => {
         }
     };
     
-    const handleFileChange = (e) => {
+    const extractTextFromPDF = async (file) => {
+        try {
+            const arrayBuffer = await file.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+            let textContent = "";
+            const promises = [];
+
+            for (let i = 1; i <= pdf.numPages; i++) {
+                promises.push(
+                    pdf.getPage(i).then(page => {
+                        return page.getTextContent().then(textContentObj => {
+                            return textContentObj.items.map(item => item.str).join(" ");
+                        });
+                    })
+                );
+            }
+
+            const pagesText = await Promise.all(promises);
+            textContent = pagesText.join("\n");
+            setExtractedText(textContent);
+            return textContent;
+        } catch (error) {
+            console.error('Error extracting text from PDF:', error);
+            throw error;
+        }
+    };
+
+    const handleFileChange = async (e) => {
         if (e.target.files && e.target.files[0]) {
-            setDocumentFile(e.target.files[0]);
+            const file = e.target.files[0];
+            setDocumentFile(file);
+            try {
+                await extractTextFromPDF(file);
+            } catch (error) {
+                setErrors(prev => ({
+                    ...prev,
+                    document: 'Error extracting text from PDF. Please try again.'
+                }));
+            }
         }
     };
 
@@ -97,14 +141,13 @@ const LegalForm = () => {
                     formDataToSend.append(key, formData[key]);
                 });
                 
-                // Add document file if selected
-                if (documentFile) {
-                    formDataToSend.append('document', documentFile);
+                // Add extracted text instead of the file
+                if (extractedText) {
+                    formDataToSend.append('documentText', extractedText);
                 }
                 
                 console.log('Sending form data...');
                 
-                // Set the correct content type for express-fileupload
                 const response = await axios.post('http://localhost:4000/api/form/submit-legal-case', formDataToSend, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -113,12 +156,11 @@ const LegalForm = () => {
                 
                 console.log('Received response:', response.data);
                 
-                // Handle successful response
                 setSubmitStatus('success');
                 setCaseReference(response.data.caseReference || '');
                 setResponseDetails(response.data.receivedData || null);
                 
-                // Reset form fields but keep the document file
+                // Reset form fields
                 setFormData({
                     fullName: '',
                     email: '',
@@ -127,15 +169,8 @@ const LegalForm = () => {
                     legalIssue: '',
                     caseDetails: '',
                 });
-                
-                // Don't reset the document file
-                // setDocumentFile(null);
-                
-                // Don't reset file input element
-                // const fileInput = document.getElementById('documentUpload');
-                // if (fileInput) {
-                //     fileInput.value = '';
-                // }
+                setDocumentFile(null);
+                setExtractedText('');
                 
             } catch (error) {
                 console.error('Error submitting form:', error);
@@ -307,6 +342,18 @@ const LegalForm = () => {
                             </p>
                         )}
                     </div>
+
+                    {/* Display extracted text */}
+                    {extractedText && (
+                        <div className="mt-4">
+                            <h4 className="text-sm font-medium text-indigo-700 mb-2">Extracted Text Content:</h4>
+                            <div className="p-3 bg-gray-50 border border-gray-200 rounded-md">
+                                <pre className="text-sm text-gray-700 whitespace-pre-wrap font-sans">
+                                    {extractedText}
+                                </pre>
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 <div className="flex justify-between gap-4">
@@ -328,16 +375,10 @@ const LegalForm = () => {
                                 legalIssue: '',
                                 caseDetails: '',
                             });
-                            // Keep the document file
-                            // setDocumentFile(null);
+                            setDocumentFile(null);
+                            setExtractedText('');
                             setErrors({});
                             setSubmitStatus(null);
-                            
-                            // Don't reset file input
-                            // const fileInput = document.getElementById('documentUpload');
-                            // if (fileInput) {
-                            //     fileInput.value = '';
-                            // }
                         }}
                         className="w-full py-2 px-4 bg-gray-200 hover:bg-gray-300 text-indigo-900 font-semibold rounded-md shadow transition duration-200"
                         disabled={isSubmitting}
