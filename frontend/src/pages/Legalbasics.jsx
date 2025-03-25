@@ -307,10 +307,10 @@ const Legalbasics = () => {
     return (
         <div className="relative min-h-screen overflow-hidden">
             {/* Background Effects - Matching Hero.jsx */}
-            <div className="absolute inset-0 -z-10 h-full w-full bg-[radial-gradient(100%_50%_at_50%_0%,rgba(124,58,237,0.25)_0,rgba(124,58,237,0)_50%,rgba(124,58,237,0)_100%)]"></div>
+            {/* <div className="absolute inset-0 -z-10 h-full w-full bg-[radial-gradient(100%_50%_at_50%_0%,rgba(124,58,237,0.25)_0,rgba(124,58,237,0)_50%,rgba(124,58,237,0)_100%)]"></div>
             <div className="absolute inset-0 -z-10 h-full w-full">
-                <div className="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(124,58,237,0.5)] opacity-50 blur-[80px]"></div>
-            </div>
+                <div className="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(124,58,237,0.5)] opacity-0 blur-[0px]"></div>
+            </div> */}
 
             <div className="container mx-auto px-4 py-8 max-w-6xl">
                 {/* Header Section - Matching Hero.jsx style */}
