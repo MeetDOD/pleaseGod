@@ -174,7 +174,7 @@ body {
 .google-translate-container {
   position: fixed;
   bottom: 20px;
-  right: -40px;
+  left: 20px; /* Move to the bottom-left */
   z-index: 10000;
 }
 
