@@ -21,48 +21,49 @@ const FAQ = () => {
     const questionsLeft = [
         {
             id: 1,
-            question: 'What is Career Insight?',
-            answer: 'Career Insight is a web app designed to help 2nd and 3rd-year students stay ahead in the tech world by providing insights into trending technologies, tools, and frameworks.',
+            question: 'What is Satyadarshi?',
+            answer: 'Satyadarshi is a legal aid web application that helps users understand their rights and connect with suitable legal resources through AI-driven assistance.',
         },
         {
             id: 2,
-            question: 'How do I sign up for Career Insight?',
-            answer: 'You can sign up by clicking the "Sign Up" button on the homepage and providing your name, email address, and a password.',
+            question: 'How do I sign up for Satyadarshi?',
+            answer: 'You can sign up by clicking the "Sign Up" button on the homepage and entering your name, email address, and password.',
         },
         {
             id: 3,
-            question: 'What kind of technology trends does Career Insight cover?',
-            answer: 'Career Insight covers trends in software development, data science, artificial intelligence, cloud computing, and other emerging tech fields.',
+            question: 'What kind of legal issues does Satyadarshi cover?',
+            answer: 'Satyadarshi covers common legal areas like consumer rights, family law, property disputes, workplace issues, and basic criminal and civil matters.',
         },
         {
             id: 4,
-            question: 'Is Career Insight free to use?',
-            answer: 'Yes, Career Insight offers a free plan for students. Some advanced features might be available through a premium subscription.',
+            question: 'Is Satyadarshi free to use?',
+            answer: 'Yes, Satyadarshi offers free legal insights and AI-based suggestions. Some features may require login or future premium plans.',
         },
     ];
-
+    
     const questionsRight = [
         {
             id: 5,
-            question: 'How are the technology trends curated?',
-            answer: 'We scrape data from multiple trusted sources, including blogs, articles, and tutorials, to bring you the latest and most relevant trends.',
+            question: 'How does Satyadarshi generate legal suggestions?',
+            answer: 'Satyadarshi uses AI to analyze your selected symptoms or concerns and maps them to legal domains and relevant resources.',
         },
         {
             id: 6,
-            question: 'Can I customize the technology suggestions?',
-            answer: 'Yes, you can customize your preferences by selecting your areas of interest in your profile settings to get tailored suggestions.',
+            question: 'Can I get lawyer recommendations?',
+            answer: 'Yes, Satyadarshi suggests lawyers based on your issue type and location using data fetched from our database.',
         },
         {
             id: 7,
-            question: 'How can I access additional learning resources?',
-            answer: 'Career Insight provides links to relevant blogs, articles, and tutorials. These resources are aggregated and displayed on your dashboard.',
+            question: 'Does Satyadarshi provide official legal advice?',
+            answer: 'No, Satyadarshi provides basic legal awareness and helps connect users to professionals. For official advice, consult a licensed advocate.',
         },
         {
             id: 8,
             question: 'How do I contact support if I need help?',
-            answer: 'You can reach out to our support team by visiting the "Contact Us" section and submitting your query. We’re here to help!',
+            answer: 'Visit the "Contact Us" page to raise any queries or feedback. Our support team will get back to you shortly.',
         },
     ];
+    
 
     return (
         <div className="mb-10 pt-12">
@@ -71,7 +72,7 @@ const FAQ = () => {
                     Frequently <span className="text-primary">Asked Questions</span>
                 </h1>
                 <p className='text-center text-lg opacity-90 tracking-tight'>
-                    Discover how Career Insight can help you stay updated and grow your tech skills.
+                    Discover how Satyadarshi empowers you to understand legal matters and make informed decisions with ease.
                 </p>
             </div>
             <div className="flex flex-col md:flex-row justify-between gap-y-8 md:gap-x-6 sectionMargin">
