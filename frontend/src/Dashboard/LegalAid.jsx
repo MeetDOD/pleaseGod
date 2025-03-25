@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import AppSidebar from './AppSidebar';
+import { useNavigate } from 'react-router-dom';
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -10,11 +11,13 @@ import {
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
 
 const LegalAid = () => {
-    const [legalDocs, setLegalDocs] = useState(null);
+    const [legalDocs, setLegalDocs] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchLegalDocs = async () => {
@@ -30,7 +33,7 @@ const LegalAid = () => {
                 });
                 const data = await response.json();
                 if (data.success) {
-                    setLegalDocs(data.data[0]);
+                    setLegalDocs(data.data);
                 } else {
                     setError('Failed to fetch legal documents');
                 }
@@ -54,39 +57,51 @@ const LegalAid = () => {
             return <div className="text-red-500 text-center">{error}</div>;
         }
 
-        if (!legalDocs) {
+        if (!legalDocs.length) {
             return <div className="text-center">No legal documents found.</div>;
         }
 
         return (
-            <div className="space-y-6">
-                <Card className="p-6 shadow-lg">
-                    <h2 className="text-2xl font-bold mb-4 text-primary">Legal Recommendation</h2>
-                    <p className="text-gray-700 leading-relaxed">{legalDocs.final_recommendation}</p>
-                </Card>
-
-                <Card className="p-6 shadow-lg">
-                    <h2 className="text-2xl font-bold mb-6 text-primary">Step-by-Step Guidance</h2>
-                    <div className="space-y-6">
-                        {legalDocs.step_by_step_guidance[0].split(', ').map((step, index) => (
-                            <div key={index} className="border-l-4 border-primary pl-4">
-                                <h3 className="font-semibold text-lg mb-2">{step.split(': ')[0]}</h3>
-                                <p className="text-gray-700">{step.split(': ')[1]}</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {legalDocs.map((doc) => (
+                    <Card key={doc._id} className="p-6 shadow-lg hover:shadow-xl transition-shadow">
+                        <h2 className="text-xl font-bold mb-4 text-primary">Legal Recommendation</h2>
+                        <p className="text-gray-700 leading-relaxed line-clamp-3">
+                            {doc.final_recommendation}
+                        </p>
+                        <div className="mt-4">
+                            <h3 className="text-lg font-semibold mb-2">Legal Resources</h3>
+                            <ul className="list-disc pl-5 space-y-2 mb-4">
+                                {doc.legal_resources[0]
+                                    .replace(/[\[\]]/g, '')
+                                    .split(',')
+                                    .map((resource, index) => (
+                                        <li key={index}>
+                                            <a 
+                                                href={resource.trim()}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-600 hover:text-blue-800 hover:underline"
+                                            >
+                                                {resource.trim()}
+                                            </a>
+                                        </li>
+                                    ))}
+                            </ul>
+                            <div className="flex justify-between items-center">
+                                <Button 
+                                    variant="outline"
+                                    onClick={() => navigate(`/legal-aid/${doc._id}`)}
+                                >
+                                    View Details
+                                </Button>
+                                <span className="text-sm text-gray-500">
+                                    ID: {doc._id.slice(-6)}
+                                </span>
                             </div>
-                        ))}
-                    </div>
-                </Card>
-
-                {legalDocs.legal_resources && (
-                    <Card className="p-6 shadow-lg">
-                        <h2 className="text-2xl font-bold mb-4 text-primary">Legal Resources</h2>
-                        <ul className="list-disc list-inside text-gray-700">
-                            {legalDocs.legal_resources.map((resource, index) => (
-                                <li key={index}>{resource}</li>
-                            ))}
-                        </ul>
+                        </div>
                     </Card>
-                )}
+                ))}
             </div>
         );
     };

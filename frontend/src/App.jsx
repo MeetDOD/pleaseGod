@@ -15,7 +15,7 @@ import Footer from "./home/Footer";
 import LegalForm from "./components/legalForm/LegalForm";
 import LegalDocuments from './components/LegalDocuments';
 import LegalAid from "./Dashboard/LegalAid";
-
+import LegalAidDetail from "./Dashboard/LegalAidDetail";
 const App = () => {
   return (
     <Suspense fallback={<Loader />}>
@@ -59,6 +59,14 @@ const App = () => {
                 <AuthenticatedRoute>
                   <LegalAid />
                 </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/legal-aid/:id"
+              element={
+                <AuthenticatedRoute>
+                  <LegalAidDetail />
+                </AuthenticatedRoute> 
               }
             />
 
