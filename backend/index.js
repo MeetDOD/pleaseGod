@@ -21,6 +21,9 @@ const voteRoutes = require("./Routes/community/votes.route.js");
 
 const podcastRoutes = require("./Routes/podcast.route.js");
 
+const podcastRoutes = require("./Routes/podcast.route.js");
+
+const serpRouter = require("./Routes/serp.route");
 const port = process.env.PORT || 4000;
 
 app.use(cors({ origin: "*" }));
@@ -43,6 +46,8 @@ app.use("/api/answers", answerRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/vote", voteRoutes);
 app.use("/api/podcast", podcastRoutes);
+app.use('/api/serp', serpRouter);
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

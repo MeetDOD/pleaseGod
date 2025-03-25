@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator"
 import { tokenState, userState } from '@/store/auth';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { toast } from 'sonner';
-import { FaBandAid, FaFolderOpen, FaVideo } from "react-icons/fa";
+import { FaBandAid, FaFolderOpen, FaNewspaper, FaVideo, FaVideo } from "react-icons/fa";
 import { MdSettingsVoice } from "react-icons/md";
 import { Crown } from 'lucide-react';
 
@@ -18,7 +18,9 @@ const data = {
         { title: 'Legal Aid', url: '/legalaid', icon: FaBandAid },
         { title: 'My Legal Aids', url: '/mylegalaids', icon: FaFolderOpen },
         { title: 'AI Consultant', url: '/aiconsultant', icon: FaVideo },
-        { title: 'AI Podcast', url: '/podcast', icon: MdSettingsVoice }
+        { title: 'AI Podcast', url: '/podcast', icon: MdSettingsVoice },
+        { title: 'News', url: '/news', icon: FaNewspaper },
+        { title: 'Legal Videos', url: '/legalvideos', icon: FaVideo },
     ],
 };
 

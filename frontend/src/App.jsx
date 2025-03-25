@@ -19,6 +19,8 @@ import Legalscenarios from "./pages/Legalscenarios";
 import Legalbasics from "./pages/Legalbasics";
 import Caseexplorer from "./pages/Caseexplorer";
 import Proplans from "./pages/Proplans";
+import News from "./Dashboard/News";
+import Videos from "./Dashboard/Videos";
 import MockInterviewForm from "./AIConsultant/MockInterviewForm";
 import InterviewScreen from "./AIConsultant/InterviewScreen";
 import Questions from "./Community/Questions";
@@ -31,6 +33,7 @@ const App = () => {
         <div className="mx-4 sm:mx-[10%]">
           <Navbar />
           <GoogleTranslate />
+          
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/legalscenarios" element={<Legalscenarios />} />
@@ -111,6 +114,22 @@ const App = () => {
               element={
                 <AuthenticatedRoute>
                   <LegalAidDetail />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/news"
+              element={
+                <AuthenticatedRoute>
+                  <News />
+                </AuthenticatedRoute> 
+              }
+            />
+            <Route
+              path="/legalvideos"
+              element={
+                <AuthenticatedRoute>
+                  <Videos />
                 </AuthenticatedRoute>
               }
             />
