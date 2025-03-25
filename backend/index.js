@@ -13,6 +13,12 @@ require("./jobs/schedular");
 const formRoute = require("./Routes/form.route");
 const legalDocRoute = require('./Routes/legalDoc.route');
 const paymentRouter = require("./Routes/payment.route.js");
+
+const questionRoutes = require("./Routes/community/question.route.js");
+const answerRoutes = require("./Routes/community/answer.route.js");
+const commentRoutes = require("./Routes/community/comment.route.js");
+const voteRoutes = require("./Routes/community/votes.route.js");
+
 const serpRouter = require("./Routes/serp.route");
 const port = process.env.PORT || 4000;
 
@@ -31,6 +37,10 @@ app.use("/api/user", userRoute);
 app.use("/api/form", formRoute);
 app.use('/api/legal', legalDocRoute);
 app.use('/api/payment', paymentRouter);
+app.use("/api/questions", questionRoutes);
+app.use("/api/answers", answerRoutes);
+app.use("/api/comments", commentRoutes);
+app.use("/api/vote", voteRoutes);
 app.use('/api/serp', serpRouter);
 
 
