@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const db = process.env.MONGO_URL;
-
+console.log(db);
 mongoose
     .connect(db)
     .then(() => {

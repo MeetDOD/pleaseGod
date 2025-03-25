@@ -5,8 +5,8 @@ import 'pdfjs-dist/build/pdf.worker.min.mjs';
 
 // Ensure the worker is loaded
 pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.mjs', 
-  import.meta.url
+    'pdfjs-dist/build/pdf.worker.min.mjs',
+    import.meta.url
 ).toString();
 
 const LegalForm = () => {
@@ -18,7 +18,7 @@ const LegalForm = () => {
         legalIssue: '',
         caseDetails: '',
     });
-    
+    const API_URL = import.meta.env.VITE_BASE_URL;
     const [documentFile, setDocumentFile] = useState(null);
     const [extractedText, setExtractedText] = useState('');
     const [errors, setErrors] = useState({});
@@ -26,14 +26,14 @@ const LegalForm = () => {
     const [submitStatus, setSubmitStatus] = useState(null);
     const [caseReference, setCaseReference] = useState('');
     const [responseDetails, setResponseDetails] = useState(null);
-        const validateForm = () => {
+    const validateForm = () => {
         const newErrors = {};
-        
+
         // Full Name validation
         if (!formData.fullName.trim()) {
             newErrors.fullName = 'Full name is required';
         }
-        
+
         // Email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!formData.email.trim()) {
@@ -41,7 +41,8 @@ const LegalForm = () => {
         } else if (!emailRegex.test(formData.email)) {
             newErrors.email = 'Enter a valid email address';
         }
-        
+
+
         // Phone validation
         const phoneRegex = /^\d{10}$/;
         if (!formData.phone.trim()) {
@@ -49,19 +50,19 @@ const LegalForm = () => {
         } else if (!phoneRegex.test(formData.phone.replace(/\D/g, ''))) {
             newErrors.phone = 'Enter a valid 10-digit phone number';
         }
-        
+
         // Legal issue validation
         if (!formData.legalIssue) {
             newErrors.legalIssue = 'Please select a legal issue';
         }
-        
+
         // Case details validation
         if (!formData.caseDetails.trim()) {
             newErrors.caseDetails = 'Case details are required';
         } else if (formData.caseDetails.trim().length < 10) {
             newErrors.caseDetails = 'Please provide more details (minimum 10 characters)';
         }
-        
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -72,7 +73,7 @@ const LegalForm = () => {
             ...formData,
             [name]: value
         });
-        
+
         // Clear error when field is edited
         if (errors[name]) {
             setErrors({
@@ -81,7 +82,7 @@ const LegalForm = () => {
             });
         }
     };
-    
+
     const extractTextFromPDF = async (file) => {
         try {
             const arrayBuffer = await file.arrayBuffer();
@@ -112,6 +113,16 @@ const LegalForm = () => {
     const handleFileChange = async (e) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
+
+            // Check if the file is a PDF
+            if (file.type !== 'application/pdf') {
+                setErrors(prev => ({
+                    ...prev,
+                    document: 'Only PDF files are supported.'
+                }));
+                return;
+            }
+
             setDocumentFile(file);
             try {
                 await extractTextFromPDF(file);
@@ -126,40 +137,50 @@ const LegalForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (validateForm()) {
             setIsSubmitting(true);
             setSubmitStatus(null);
             setResponseDetails(null);
-            
+
             try {
                 // Create form data to send
                 const formDataToSend = new FormData();
-                
+
                 // Add form fields to FormData
                 Object.keys(formData).forEach(key => {
                     formDataToSend.append(key, formData[key]);
                 });
-                
+
                 // Add extracted text to the form data
                 if (extractedText) {
                     formDataToSend.append('documentText', extractedText);
                 }
+
+                // Get the token from localStorage
+                const token = localStorage.getItem("token");
                 
-                console.log('Sending form data...');
-                
-                const response = await axios.post('http://localhost:4000/api/form/submit-legal-case', formDataToSend, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
+                if (!token) {
+                    throw new Error('No authentication token found. Please login first.');
+                }
+
+                const response = await axios.post(
+                    `${API_URL}/api/form/submit-legal-case`, 
+                    formDataToSend, 
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                            'Authorization': `Bearer ${token}`
+                        }
                     }
-                });
-                
+                );
+
                 console.log('Received response:', response.data);
-                
+
                 setSubmitStatus('success');
                 setCaseReference(response.data.caseReference || '');
                 setResponseDetails(response.data.receivedData || null);
-                
+
                 // Reset form fields
                 setFormData({
                     fullName: '',
@@ -171,12 +192,24 @@ const LegalForm = () => {
                 });
                 setDocumentFile(null);
                 setExtractedText('');
-                
+
             } catch (error) {
                 console.error('Error submitting form:', error);
                 setSubmitStatus('error');
-                if (error.response && error.response.data) {
-                    setResponseDetails(error.response.data);
+                
+                // Enhanced error handling
+                if (error.response?.status === 403) {
+                    setResponseDetails({
+                        error: 'Authentication required. Please login first.'
+                    });
+                } else if (error.message === 'No authentication token found. Please login first.') {
+                    setResponseDetails({
+                        error: error.message
+                    });
+                } else {
+                    setResponseDetails(error.response?.data || {
+                        error: 'An unexpected error occurred'
+                    });
                 }
             } finally {
                 setIsSubmitting(false);
@@ -187,7 +220,7 @@ const LegalForm = () => {
     return (
         <div className="max-w-3xl mx-auto p-6 bg-indigo-50 rounded-lg shadow-md">
             <h2 className="text-2xl font-bold text-center text-indigo-900 mb-6">Legal Case Submission Form</h2>
-            
+
             {submitStatus === 'success' && (
                 <div className="mb-6 p-4 bg-green-100 border border-green-300 text-green-700 rounded-md">
                     <p className="font-semibold">Your case has been submitted successfully!</p>
@@ -205,7 +238,7 @@ const LegalForm = () => {
                     )}
                 </div>
             )}
-            
+
             {submitStatus === 'error' && (
                 <div className="mb-6 p-4 bg-red-100 border border-red-300 text-red-700 rounded-md">
                     <p className="font-semibold">There was an error submitting your case.</p>
@@ -220,12 +253,12 @@ const LegalForm = () => {
                     )}
                 </div>
             )}
-            
+
             <form onSubmit={handleSubmit}>
                 {/* Basic Case Information Section */}
                 <div className="mb-8 p-4 border border-indigo-200 rounded-md bg-white">
                     <h3 className="text-xl font-semibold mb-4 text-indigo-800">🏛 Basic Case Information</h3>
-                    
+
                     <div className="mb-4">
                         <label htmlFor="fullName" className="block text-sm font-medium text-indigo-700 mb-1">Full Name</label>
                         <input
@@ -238,7 +271,7 @@ const LegalForm = () => {
                         />
                         {errors.fullName && <p className="mt-1 text-sm text-red-600">{errors.fullName}</p>}
                     </div>
-                    
+
                     <div className="mb-4">
                         <label htmlFor="email" className="block text-sm font-medium text-indigo-700 mb-1">Email Address</label>
                         <input
@@ -251,7 +284,7 @@ const LegalForm = () => {
                         />
                         {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
                     </div>
-                    
+
                     <div className="mb-4">
                         <label htmlFor="phone" className="block text-sm font-medium text-indigo-700 mb-1">Phone Number</label>
                         <input
@@ -265,7 +298,7 @@ const LegalForm = () => {
                         />
                         {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone}</p>}
                     </div>
-                    
+
                     <div className="mb-4">
                         <label htmlFor="preferredLanguage" className="block text-sm font-medium text-indigo-700 mb-1">Preferred Language</label>
                         <select
@@ -291,7 +324,7 @@ const LegalForm = () => {
                 {/* Legal Issue Details Section */}
                 <div className="mb-8 p-4 border border-indigo-200 rounded-md bg-white">
                     <h3 className="text-xl font-semibold mb-4 text-indigo-800">⚖️ Legal Issue Details</h3>
-                    
+
                     <div className="mb-4">
                         <label htmlFor="legalIssue" className="block text-sm font-medium text-indigo-700 mb-1">What legal issue are you facing?</label>
                         <select
@@ -310,7 +343,7 @@ const LegalForm = () => {
                         </select>
                         {errors.legalIssue && <p className="mt-1 text-sm text-red-600">{errors.legalIssue}</p>}
                     </div>
-                    
+
                     <div className="mb-4">
                         <label htmlFor="caseDetails" className="block text-sm font-medium text-indigo-700 mb-1">Please describe your case in detail</label>
                         <textarea
@@ -325,17 +358,18 @@ const LegalForm = () => {
                         {errors.caseDetails && <p className="mt-1 text-sm text-red-600">{errors.caseDetails}</p>}
                         <p className="mt-1 text-xs text-indigo-600">{formData.caseDetails.length} / 10 characters minimum</p>
                     </div>
-                    
+
                     <div className="mb-4">
                         <label htmlFor="documentUpload" className="block text-sm font-medium text-indigo-700 mb-1">Upload a document (optional)</label>
                         <input
                             type="file"
                             id="documentUpload"
                             name="document"
+                            accept="application/pdf"
                             onChange={handleFileChange}
                             className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
                         />
-                        <p className="mt-1 text-xs text-indigo-600">Supported formats: PDF </p>
+                        <p className="mt-1 text-xs text-indigo-600">Supported formats: PDF only</p>
                         {documentFile && (
                             <p className="mt-1 text-xs text-indigo-600">
                                 Selected file: {documentFile.name} ({(documentFile.size / (1024 * 1024)).toFixed(2)} MB)
@@ -343,29 +377,18 @@ const LegalForm = () => {
                         )}
                     </div>
 
-                    {/* Display extracted text */}
-                    {extractedText && (
-                        <div className="mt-4">
-                            <h4 className="text-sm font-medium text-indigo-700 mb-2">Extracted Text Content:</h4>
-                            <div className="p-3 bg-gray-50 border border-gray-200 rounded-md">
-                                <pre className="text-sm text-gray-700 whitespace-pre-wrap font-sans">
-                                    {extractedText}
-                                </pre>
-                            </div>
-                        </div>
-                    )}
                 </div>
 
                 <div className="flex justify-between gap-4">
-                    <button 
-                        type="submit" 
+                    <button
+                        type="submit"
                         disabled={isSubmitting}
                         className={`w-full py-2 px-4 bg-indigo-700 hover:bg-indigo-800 text-white font-semibold rounded-md shadow transition duration-200 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                     >
                         {isSubmitting ? 'Submitting...' : 'Submit Case'}
                     </button>
-                    <button 
-                        type="button" 
+                    <button
+                        type="button"
                         onClick={() => {
                             setFormData({
                                 fullName: '',

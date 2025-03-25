@@ -19,6 +19,10 @@ import { ImSpinner2 } from "react-icons/im";
 import { useSetRecoilState } from "recoil";
 import { tokenState } from "@/store/auth";
 
+
+
+const API_URL = import.meta.env.VITE_BASE_URL  
+
 const UserLogin = () => {
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
@@ -50,7 +54,7 @@ const UserLogin = () => {
 
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/api/user/login`,
+        `${API_URL}/api/user/login`,
         {
           email,
           password,
@@ -83,7 +87,7 @@ const UserLogin = () => {
 
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/api/user/register`,
+        `${API_URL}/api/user/register`,
         {
           fullName,
           email,
@@ -123,7 +127,7 @@ const UserLogin = () => {
 
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/api/user/verify-otp`,
+        `${API_URL}/api/user/verify-otp`,
         {
           email,
           enteredOTP: otp,

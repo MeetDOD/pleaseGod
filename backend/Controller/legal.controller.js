@@ -3,6 +3,14 @@ const axios = require('axios');
 // Controller function for submitting a legal case
 exports.submitLegalCase = async (req, res) => {
     try {
+        const user = req.user;
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: 'Unauthorized'
+            });
+        }
+        console.log("user",user._id);
         const { 
             fullName, 
             email, 
@@ -10,7 +18,7 @@ exports.submitLegalCase = async (req, res) => {
             preferredLanguage, 
             legalIssue, 
             caseDetails,
-            documentText // Add this to receive the extracted text
+            documentText, // Add this to receive the extracted text
         } = req.body;
 
         console.log('Request body:', req.body);
@@ -32,6 +40,7 @@ exports.submitLegalCase = async (req, res) => {
             preferredLanguage,
             legalIssue,
             caseDetails,
+            userId: user._id,
             hasDocumentText: !!documentText,
             submitTime: new Date().toISOString()
         };
