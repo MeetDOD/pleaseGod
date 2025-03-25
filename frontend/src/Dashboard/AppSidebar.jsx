@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator"
 import { tokenState, userState } from '@/store/auth';
 import { useSetRecoilState } from 'recoil';
 import { toast } from 'sonner';
-import { FaBandAid, FaFolderOpen } from "react-icons/fa";
+import { FaBandAid, FaFolderOpen, FaNewspaper, FaVideo } from "react-icons/fa";
 import { MdSettingsVoice } from "react-icons/md";
 
 const data = {
@@ -16,7 +16,9 @@ const data = {
         { title: 'Dashboard', url: '/dashboard', icon: MdSpaceDashboard },
         { title: 'Legal Aid', url: '/legalaid', icon: FaBandAid },
         { title: 'My Legal Aids', url: '/mylegalaids', icon: FaFolderOpen },
-        { title: 'AI Consultant', url: '/aiconsultant', icon: MdSettingsVoice }
+        { title: 'AI Consultant', url: '/aiconsultant', icon: MdSettingsVoice },
+        { title: 'News', url: '/news', icon: FaNewspaper },
+        { title: 'Legal Videos', url: '/legalvideos', icon: FaVideo},
     ],
 };
 

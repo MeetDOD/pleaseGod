@@ -13,6 +13,7 @@ require("./jobs/schedular");
 const formRoute = require("./Routes/form.route");
 const legalDocRoute = require('./Routes/legalDoc.route');
 const paymentRouter = require("./Routes/payment.route.js");
+const serpRouter = require("./Routes/serp.route");
 const port = process.env.PORT || 4000;
 
 app.use(cors({ origin: "*" }));
@@ -30,6 +31,7 @@ app.use("/api/user", userRoute);
 app.use("/api/form", formRoute);
 app.use('/api/legal', legalDocRoute);
 app.use('/api/payment', paymentRouter);
+app.use('/api/serp', serpRouter);
 
 
 app.listen(port, () => {
