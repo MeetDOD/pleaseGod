@@ -11,6 +11,7 @@ const fileUpload = require("express-fileupload");
 const { cloudnairyconnect } = require("./Config/cloudinary");
 require("./jobs/schedular");
 const formRoute = require("./Routes/form.route");
+const legalDocRoute = require('./Routes/legalDoc.route');
 const port = process.env.PORT || 4000;
 
 app.use(cors({ origin: "*" }));
@@ -26,6 +27,7 @@ cloudnairyconnect();
 
 app.use("/api/user", userRoute);
 app.use("/api/form", formRoute);
+app.use('/api/legal', legalDocRoute);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

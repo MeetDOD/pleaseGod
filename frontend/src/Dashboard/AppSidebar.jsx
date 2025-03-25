@@ -11,7 +11,8 @@ import { toast } from 'sonner';
 
 const data = {
     navMain: [
-        { title: 'Dashboard', url: '/dashboard', icon: MdSpaceDashboard }
+        { title: 'Dashboard', url: '/dashboard', icon: MdSpaceDashboard },
+        { title: 'Legal Assistant', url: '/legal-assistant', icon: MdSpaceDashboard }
     ],
 };
 
