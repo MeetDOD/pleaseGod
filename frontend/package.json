@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "node --max-old-space-size=4096 node_modules/.bin/vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postinstall": "copy node_modules\\pdfjs-dist\\build\\pdf.worker.mjs public\\"
   },
   "dependencies": {
     "@cashfreepayments/cashfree-js": "^1.0.5",
@@ -47,6 +48,7 @@
     "lucide-react": "^0.446.0",
     "moment": "^2.30.1",
     "motion": "^12.5.0",
+    "pdfjs-dist": "^5.0.375",
     "react": "^18.3.1",
     "react-confetti": "^6.1.0",
     "react-dom": "^18.3.1",

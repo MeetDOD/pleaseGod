@@ -12,6 +12,7 @@ import Loader from "./services/Loader";
 import NotFound from "./pages/NotFound";
 import AddDetailForm from "./home/AddDetailForm";
 import Footer from "./home/Footer";
+import LegalForm from "./components/legalForm/LegalForm";
 
 const App = () => {
   return (
@@ -40,6 +41,7 @@ const App = () => {
               }
             />
             <Route path="/*" element={<NotFound />} />
+            <Route path="/legal-form" element={<LegalForm />} />
           </Routes>
           <Toaster richColors />
         </div>
