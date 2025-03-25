@@ -1,15 +1,8 @@
-import { Request, Response } from "express";
 const axios = require('axios');
-const fs = require('fs');
 const path = require('path');
+const fs = require('fs');
 
-// Create uploads directory if it doesn't exist
-const uploadsDir = path.join(__dirname, '../uploads/documents');
-if (!fs.existsSync(uploadsDir)) {
-    fs.mkdirSync(uploadsDir, { recursive: true });
-}
-
-// Controller function to handle legal case submission
+// Controller function for submitting a legal case
 exports.submitLegalCase = async (req, res) => {
     try {
         const { 
@@ -21,23 +14,43 @@ exports.submitLegalCase = async (req, res) => {
             caseDetails 
         } = req.body;
 
+        console.log('Request body:', req.body);
+
         // Basic validation
         if (!fullName || !email || !phone || !legalIssue || !caseDetails) {
             return res.status(400).json({ 
                 success: false, 
-                message: 'Please provide all required fields' 
+                message: 'Please provide all required fields',
+                receivedData: req.body
             });
         }
 
-        // Handle file information if any were uploaded
+        // File info (using express-fileupload)
         let fileInfo = null;
-        if (req.file) {
+        if (req.files && req.files.document) {
+            const document = req.files.document;
+            const uploadsDir = path.join(__dirname, '../uploads/documents');
+            
+            // Create directory if it doesn't exist
+            if (!fs.existsSync(uploadsDir)) {
+                fs.mkdirSync(uploadsDir, { recursive: true });
+            }
+            
+            // Generate unique filename
+            const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+            const fileExt = path.extname(document.name);
+            const filename = `legal-doc-${uniqueSuffix}${fileExt}`;
+            const filepath = path.join(uploadsDir, filename);
+            
+            // Move the file to uploads directory
+            await document.mv(filepath);
+            
             fileInfo = {
-                filename: req.file.filename,
-                originalname: req.file.originalname,
-                path: req.file.path,
-                mimetype: req.file.mimetype,
-                size: req.file.size
+                filename: filename,
+                originalname: document.name,
+                path: filepath,
+                mimetype: document.mimetype,
+                size: document.size
             };
         }
 
@@ -50,79 +63,33 @@ exports.submitLegalCase = async (req, res) => {
             legalIssue,
             caseDetails,
             hasDocument: !!fileInfo,
-            documentInfo: fileInfo ? {
-                name: fileInfo.originalname,
-                type: fileInfo.mimetype,
-                size: fileInfo.size
-            } : null,
+            documentInfo: fileInfo,
             submitTime: new Date().toISOString()
         });
-
+        console.log(response);
         // Generate a simple reference number for the case
         const caseReference = `CASE-${Date.now().toString().slice(-6)}`;
-
-        // Store case data in database (you can implement this later)
-        // const newCase = await LegalCase.create({...})
 
         res.status(200).json({ 
             success: true, 
             message: 'Form submitted successfully',
             caseReference: caseReference,
-            data: response.data 
+            receivedData: {
+                fullName,
+                email,
+                phone,
+                preferredLanguage,
+                legalIssue,
+                caseDetailsLength: caseDetails.length,
+                hasFile: !!fileInfo
+            }
         });
     } catch (error) {
-        console.error('Error processing legal case submission:', error);
+        console.error('Error processing submission:', error);
         res.status(500).json({ 
             success: false, 
             message: 'Failed to submit legal case',
-            error: error.message || 'Failed to send data to Make.com' 
+            error: error.message || 'Failed to process submission'
         });
     }
 };
-
-// Get all legal cases
-exports.getAllLegalCases = async (req, res) => {
-    try {
-        // You would implement database retrieval here
-        // const cases = await LegalCase.find().sort({ createdAt: -1 });
-        
-        // For now we'll return a placeholder
-        res.status(200).json({
-            success: true,
-            message: 'Cases retrieved successfully',
-            data: []
-        });
-    } catch (error) {
-        console.error('Error retrieving legal cases:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Failed to retrieve legal cases',
-            error: error.message
-        });
-    }
-};
-
-// Get a single legal case by ID
-exports.getLegalCaseById = async (req, res) => {
-    try {
-        const { id } = req.params;
-        
-        // You would implement database retrieval here
-        // const legalCase = await LegalCase.findById(id);
-        
-        // For now we'll return a placeholder
-        res.status(200).json({
-            success: true,
-            message: 'Case retrieved successfully',
-            data: null
-        });
-    } catch (error) {
-        console.error('Error retrieving legal case:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Failed to retrieve legal case',
-            error: error.message
-        });
-    }
-};
-
