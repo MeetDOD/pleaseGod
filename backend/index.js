@@ -19,6 +19,10 @@ const answerRoutes = require("./Routes/community/answer.route.js");
 const commentRoutes = require("./Routes/community/comment.route.js");
 const voteRoutes = require("./Routes/community/votes.route.js");
 
+const podcastRoutes = require("./Routes/podcast.route.js");
+
+const podcastRoutes = require("./Routes/podcast.route.js");
+
 const serpRouter = require("./Routes/serp.route");
 const port = process.env.PORT || 4000;
 
@@ -41,6 +45,7 @@ app.use("/api/questions", questionRoutes);
 app.use("/api/answers", answerRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/vote", voteRoutes);
+app.use("/api/podcast", podcastRoutes);
 app.use('/api/serp', serpRouter);
 
 
