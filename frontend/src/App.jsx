@@ -63,7 +63,7 @@ const App = () => {
               }
             />
             <Route
-              path="/mylegalaids"
+              path="/mylegalaid"
               element={
                 <AuthenticatedRoute>
                   <LegalAid />
