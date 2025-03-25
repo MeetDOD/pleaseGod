@@ -8,13 +8,13 @@ import { Separator } from "@/components/ui/separator"
 import { tokenState, userState } from '@/store/auth';
 import { useSetRecoilState } from 'recoil';
 import { toast } from 'sonner';
-import { FaBandAid } from "react-icons/fa";
+import { FaBandAid, FaFolderOpen } from "react-icons/fa";
 
 const data = {
     navMain: [
         { title: 'Dashboard', url: '/dashboard', icon: MdSpaceDashboard },
         { title: 'Legal Aid', url: '/legalaid', icon: FaBandAid },
-        { title: 'Legal Assistant', url: '/legal-assistant', icon: MdSpaceDashboard }
+        { title: 'My Legal Aids', url: '/mylegalaids', icon: FaFolderOpen }
     ],
 };
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Card } from '@/components/ui/card';
+import { Card, CardDescription } from '@/components/ui/card';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import AppSidebar from './AppSidebar';
 import {
@@ -12,6 +12,12 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { MdArrowOutward, MdRecommend } from "react-icons/md";
+import { FaExternalLinkSquareAlt } from "react-icons/fa";
+import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeline-component";
+import "react-vertical-timeline-component/style.min.css";
+import { FaCheckCircle } from "react-icons/fa";
 
 const LegalAidDetail = () => {
     const { id } = useParams();
@@ -35,6 +41,7 @@ const LegalAidDetail = () => {
                 const data = await response.json();
                 if (data.success) {
                     setLegalDoc(data.data);
+                    console.log(data.data);
                 } else {
                     setError('Failed to fetch legal document');
                 }
@@ -64,66 +71,78 @@ const LegalAidDetail = () => {
 
         return (
             <div className="space-y-6">
-                <Button 
-                    variant="outline" 
-                    onClick={() => navigate('/legal-assistant')}
-                    className="mb-6"
+                <Button
+                    variant="secondary"
+                    onClick={() => navigate('/mylegalaids')}
+                    className="mt-6 border"
                 >
-                    ← Back to All Recommendations
+                    <IoMdArrowRoundBack /> Back
                 </Button>
 
-                <Card className="p-6 shadow-lg">
-                    <h2 className="text-2xl font-bold mb-4 text-primary">Legal Recommendation</h2>
-                    <p className="text-gray-700 leading-relaxed">{legalDoc.final_recommendation}</p>
+                <Card className="p-6 shadow-sm border" style={{ backgroundColor: `var(--background-color)`, borderColor: `var(--borderColor)` }}>
+                    <h2 className="text-2xl font-bold mb-4 text-primary flex items-center gap-2"><MdRecommend /> Legal Recommendation</h2>
+                    <CardDescription className="leading-relaxed">{legalDoc.final_recommendation}</CardDescription>
                 </Card>
 
-                <Card className="p-6 shadow-lg">
+                <Card className="p-6 shadow-sm border" style={{ backgroundColor: `var(--background-color)`, borderColor: `var(--borderColor)` }}>
                     <h2 className="text-2xl font-bold mb-6 text-primary">Step-by-Step Guidance</h2>
-                    <div className="space-y-6">
-                        {legalDoc.step_by_step_guidance[0].split(', ').map((step, index) => (
-                            <div key={index} className="border-l-4 border-primary pl-4">
-                                <h3 className="font-semibold text-lg mb-2">{step.split(': ')[0]}</h3>
-                                <p className="text-gray-700">{step.split(': ')[1]}</p>
-                            </div>
-                        ))}
-                    </div>
+                    <VerticalTimeline>
+                        {legalDoc.step_by_step_guidance[0]
+                            .split(/\. /)  // Split at ". " to break the steps
+                            .map((step, index) => (
+                                <VerticalTimelineElement
+                                    key={index}
+                                    className="vertical-timeline-element--work"
+                                    contentStyle={{ background: '#f3f4f6', color: '#333' }}
+                                    contentArrowStyle={{ borderRight: '7px solid  #2563eb' }}
+                                    iconStyle={{ background: '#2563eb', color: '#fff' }}
+                                    date={`Step ${index + 1}`}
+                                    icon={<FaCheckCircle />}
+                                >
+                                    <h3 className="text-lg font-semibold">Step {index + 1}</h3>
+                                    <p className="text-gray-700">{step.trim()}</p>
+                                </VerticalTimelineElement>
+                            ))}
+                    </VerticalTimeline>
                 </Card>
+
+
+
 
                 {legalDoc.legal_resources && (
-                    <Card className="p-6 shadow-lg">
-                        <h2 className="text-2xl font-bold mb-4 text-primary">Legal Resources</h2>
+                    <Card className="p-6 shadow-sm" style={{ backgroundColor: `var(--background-color)`, borderColor: `var(--borderColor)` }}>
+                        <h2 className="text-2xl font-bold mb-4 text-primary flex items-center gap-2"><FaExternalLinkSquareAlt /> Legal Resources</h2>
                         <ul className="list-disc pl-5 space-y-3">
                             {legalDoc.legal_resources[0].includes('[Collection]') ? (
-                                // Static links when [Collection] is present
                                 <>
-                                    <li>
-                                        <a 
+                                    <li className='text-blue-600 hover:text-blue-800 hover:underline'>
+                                        <a
                                             href="https://blog.ipleaders.in/how-to-evict-a-tenant-in-india/"
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-blue-600 hover:text-blue-800 hover:underline"
+                                            className="flex items-center gap-2 text-blue-600 hover:text-blue-800 hover:underline"
                                         >
-                                            How to Evict a Tenant in India - Complete Guide
+                                            How to Evict a Tenant in India - Complete Guide <MdArrowOutward />
                                         </a>
                                     </li>
-                                    <li>
-                                        <a 
+                                    <li className='text-blue-600 hover:text-blue-800 hover:underline'>
+                                        <a
                                             href="https://www.investopedia.com/terms/e/eviction.asp"
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-blue-600 hover:text-blue-800 hover:underline"
+                                            className="flex items-center gap-2 text-blue-600 hover:text-blue-800 hover:underline"
                                         >
-                                            Understanding Eviction Process - Investopedia
+                                            Understanding Eviction Process - Investopedia <MdArrowOutward />
                                         </a>
                                     </li>
-                                    <li>
-                                        <a 
+                                    <li className='text-blue-600 hover:text-blue-800 hover:underline'>
+                                        <a
                                             href="https://lawbhoomi.com/eviction-of-a-tenant-in-india-grounds-process-and-more/"
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-blue-600 hover:text-blue-800 hover:underline"
+                                            className="flex items-center gap-2 text-blue-600 hover:text-blue-800 hover:underline"
                                         >
-                                            Eviction of a Tenant in India: Grounds, Process and More
+                                            Eviction of a Tenant in India: Grounds, Process and More <MdArrowOutward />
                                         </a>
                                     </li>
                                 </>
@@ -134,7 +153,7 @@ const LegalAidDetail = () => {
                                     .split(',')
                                     .map((resource, index) => (
                                         <li key={index}>
-                                            <a 
+                                            <a
                                                 href={resource.trim()}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
