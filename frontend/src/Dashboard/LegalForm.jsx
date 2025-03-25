@@ -16,6 +16,7 @@ import { toast } from 'sonner';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 
 // Ensure the worker is loaded
 pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
@@ -42,6 +43,7 @@ const LegalForm = () => {
     const [responseDetails, setResponseDetails] = useState(null);
     const [isPaid, setIsPaid] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
 
     const validateForm = () => {
         const newErrors = {};
@@ -332,9 +334,19 @@ const LegalForm = () => {
         </div>
     );
 
-    // Render payment gateway if not paid
+    // Check payment status on component mount
+    useEffect(() => {
+        const paymentStatus = localStorage.getItem('legalFormPayment');
+        if (paymentStatus !== 'paid') {
+            navigate('/proplans');
+        } else {
+            setIsPaid(true);
+        }
+    }, [navigate]);
+
+    // If not paid, don't render anything (useEffect will handle redirect)
     if (!isPaid) {
-        return <PaymentGateway />;
+        return null;
     }
 
     return (
