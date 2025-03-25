@@ -2,6 +2,7 @@ const LegalDoc = require("../Models/generatedLegalDocs");
 
 exports.getLegalDocs = async (req, res) => {
 	try {
+		const userId = req.user.id;
 		const { category, page = 1, limit = 10 } = req.query;
 
 		let query = {};
@@ -9,7 +10,7 @@ exports.getLegalDocs = async (req, res) => {
 			query.category = category;
 		}
 
-		const docs = await LegalDoc.find(query)
+		const docs = await LegalDoc.find({ userId, ...query })
 			.limit(limit * 1)
 			.skip((page - 1) * limit)
 			.sort({ createdAt: -1 });
@@ -34,7 +35,8 @@ exports.getLegalDocs = async (req, res) => {
 
 exports.getLegalDocById = async (req, res) => {
 	try {
-		const doc = await LegalDoc.findById(req.params.id);
+		const userId = req.user.id;
+		const doc = await LegalDoc.findOne({ _id: req.params.id, userId });
 		if (!doc) {
 			return res.status(404).json({
 				success: false,
