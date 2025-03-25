@@ -338,7 +338,8 @@ const LegalForm = () => {
     useEffect(() => {
         const paymentStatus = localStorage.getItem('legalFormPayment');
         if (paymentStatus !== 'paid') {
-            navigate('/proplans');
+            // navigate('/proplans');
+            setIsPaid(true);
         } else {
             setIsPaid(true);
         }
