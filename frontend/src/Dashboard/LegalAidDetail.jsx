@@ -93,21 +93,58 @@ const LegalAidDetail = () => {
                     <Card className="p-6 shadow-lg">
                         <h2 className="text-2xl font-bold mb-4 text-primary">Legal Resources</h2>
                         <ul className="list-disc pl-5 space-y-3">
-                            {legalDoc.legal_resources[0]
-                                .replace(/[\[\]]/g, '')
-                                .split(',')
-                                .map((resource, index) => (
-                                    <li key={index}>
+                            {legalDoc.legal_resources[0].includes('[Collection]') ? (
+                                // Static links when [Collection] is present
+                                <>
+                                    <li>
                                         <a 
-                                            href={resource.trim()}
+                                            href="https://blog.ipleaders.in/how-to-evict-a-tenant-in-india/"
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="text-blue-600 hover:text-blue-800 hover:underline"
                                         >
-                                            {resource.trim()}
+                                            How to Evict a Tenant in India - Complete Guide
                                         </a>
                                     </li>
-                            ))}
+                                    <li>
+                                        <a 
+                                            href="https://www.investopedia.com/terms/e/eviction.asp"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-600 hover:text-blue-800 hover:underline"
+                                        >
+                                            Understanding Eviction Process - Investopedia
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a 
+                                            href="https://lawbhoomi.com/eviction-of-a-tenant-in-india-grounds-process-and-more/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-600 hover:text-blue-800 hover:underline"
+                                        >
+                                            Eviction of a Tenant in India: Grounds, Process and More
+                                        </a>
+                                    </li>
+                                </>
+                            ) : (
+                                // Regular links if no [Collection]
+                                legalDoc.legal_resources[0]
+                                    .replace(/[\[\]]/g, '')
+                                    .split(',')
+                                    .map((resource, index) => (
+                                        <li key={index}>
+                                            <a 
+                                                href={resource.trim()}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-600 hover:text-blue-800 hover:underline"
+                                            >
+                                                {resource.trim()}
+                                            </a>
+                                        </li>
+                                    ))
+                            )}
                         </ul>
                     </Card>
                 )}
