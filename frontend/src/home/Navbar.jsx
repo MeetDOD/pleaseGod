@@ -41,28 +41,28 @@ const Navbar = () => {
 
     return (
         <div className='flex items-center justify-between text-sm py-4 mb-5 border-b border-primary'>
-            <img src={logo} className='w-auto h-9 cursor-pointer' alt='CAREER INSIGHT' onClick={() => navigate("/")} />
+            <img src={logo} className='w-auto h-16 cursor-pointer' alt='CAREER INSIGHT' onClick={() => navigate("/")} />
             <ul className='hidden md:flex items-center justify-center gap-5 font-medium list-none'>
                 {/* <NavLink to="/">
                     <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Home</li>
                 </NavLink> */}
                 <NavLink to="/codingquestions">
-                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Coding</li>
+                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Legal Scenarios</li>
                 </NavLink>
                 {/* <NavLink to="/about">
                     <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>About</li>
                 </NavLink> */}
                 <NavLink to="/courses">
-                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Courses</li>
+                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Legal Basics</li>
                 </NavLink>
                 <NavLink to="/riverflow">
-                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Riverflow</li>
+                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Case Explorer</li>
                 </NavLink>
                 <NavLink to="/pricing">
-                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Pricing</li>
+                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Pro Plans</li>
                 </NavLink>
                 <NavLink to="/leaderboard">
-                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Leaderboard</li>
+                    <li className='py-1 hover:bg-primary hover:text-white px-2 rounded-md hover:-translate-y-1 transition duration-300'>Justice Journey</li>
                 </NavLink>
             </ul>
             <div className='flex items-center gap-2'>

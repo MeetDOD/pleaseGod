@@ -1,52 +1,62 @@
-import { FaCode, FaServer, FaCogs, FaMobileAlt, FaDatabase, FaCloud, FaSitemap, FaTools } from "react-icons/fa";
-
-export default [
+import {
+    FaBalanceScale,
+    FaHome,
+    FaBriefcase,
+    FaHeart,
+    FaGavel,
+    FaFileAlt,
+    FaShieldAlt,
+    FaUserShield
+  } from "react-icons/fa";
+  
+  export default [
     {
-        id: 1,
-        name: 'Frontend',
-        icon: <FaCode size={35} />,
-        prompt: 'Build modern user interfaces with HTML, CSS, and JavaScript frameworks.',
+      id: 1,
+      name: "Tenant Rights",
+      icon: <FaHome size={35} />,
+      prompt: "Learn your rights as a tenant and how to handle eviction or rent issues.",
     },
     {
-        id: 2,
-        name: 'Backend',
-        icon: <FaServer size={35} />,
-        prompt: 'Learn server-side programming, databases, and APIs.',
+      id: 2,
+      name: "Wage Disputes",
+      icon: <FaBriefcase size={35} />,
+      prompt: "Understand what to do if you're not paid fairly or face unfair work treatment.",
     },
     {
-        id: 3,
-        name: 'Fullstack',
-        icon: <FaCogs size={35} />,
-        prompt: 'Master both frontend and backend technologies.',
+      id: 3,
+      name: "Family & Marriage Law",
+      icon: <FaHeart size={35} />,
+      prompt: "Get guidance on marriage, divorce, child custody, and domestic issues.",
     },
     {
-        id: 4,
-        name: 'Mobile',
-        icon: <FaMobileAlt size={35} />,
-        prompt: 'Create mobile applications for Android and iOS.',
+      id: 4,
+      name: "Consumer Protection",
+      icon: <FaShieldAlt size={35} />,
+      prompt: "Learn how to file complaints and protect yourself from fraud and bad services.",
     },
     {
-        id: 5,
-        name: 'Database',
-        icon: <FaDatabase size={35} />,
-        prompt: 'Learn about database design, SQL, and data storage solutions.',
+      id: 5,
+      name: "Criminal & Civil Law",
+      icon: <FaGavel size={35} />,
+      prompt: "Know your rights in legal matters like FIRs, bail, and small civil cases.",
     },
     {
-        id: 6,
-        name: 'Cloud',
-        icon: <FaCloud size={35} />,
-        prompt: 'Explore cloud platforms like AWS, Azure, and Google Cloud.',
+      id: 6,
+      name: "Legal Documents",
+      icon: <FaFileAlt size={35} />,
+      prompt: "Create or understand documents like legal notices, agreements, and RTIs.",
     },
     {
-        id: 7,
-        name: 'DSA',
-        icon: <FaSitemap size={35} />,
-        prompt: 'Master essential data structures and algorithms to improve problem-solving skills.',
+      id: 7,
+      name: "Cyber Law",
+      icon: <FaUserShield size={35} />,
+      prompt: "Protect yourself online – learn laws related to digital threats and privacy.",
     },
     {
-        id: 8,
-        name: 'DevOps',
-        icon: <FaTools size={35} />,
-        prompt: 'Learn CI/CD, infrastructure automation, and deployment practices.',
+      id: 8,
+      name: "Know the Law",
+      icon: <FaBalanceScale size={35} />,
+      prompt: "Basics of the Indian legal system to help you make informed decisions.",
     },
-];
+  ];
+  

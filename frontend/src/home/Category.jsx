@@ -6,7 +6,7 @@ const Category = () => {
     return (
         <section className='pb-20 pt-10 overflow-x-clip'>
             <div className='container'>
-                <h3 className='text-center text-gray-500 text-2xl font-semibold'>Our courses categories and domains to explore</h3>
+                <h3 className='text-center text-gray-500 text-2xl font-semibold'>Start Learning Legal Basics</h3>
                 <div className='flex overflow-hidden mt-12 [mask-image:linear-gradient(to_right,transparent,black_30%,black_90%,transparent)]'>
                     <motion.div
                         animate={{
