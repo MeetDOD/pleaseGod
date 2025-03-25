@@ -77,7 +77,7 @@ const LegalAid = () => {
                                     .split(',')
                                     .map((resource, index) => (
                                         <li key={index}>
-                                            <a 
+                                            <a
                                                 href={resource.trim()}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
@@ -89,9 +89,9 @@ const LegalAid = () => {
                                     ))}
                             </ul>
                             <div className="flex justify-between items-center">
-                                <Button 
+                                <Button
                                     variant="outline"
-                                    onClick={() => navigate(`/legal-aid/${doc._id}`)}
+                                    onClick={() => navigate(`/legal-assistant/${doc._id}`)}
                                 >
                                     View Details
                                 </Button>
