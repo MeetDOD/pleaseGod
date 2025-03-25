@@ -23,29 +23,28 @@ const WebDetails = () => {
 
                 <div className="w-full lg:w-1/2 text-white text-center lg:text-left">
                     <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
-                        Explore Career Opportunities with <span className="italic">Career Insight</span>
+                        Explore Legal Support with <span className="italic">SATYADARSHI</span>
                     </h2>
                     <p className="mt-4 text-base sm:text-lg font-medium">
-                        SATYADARSHI provides a platform to explore and plan your career path efficiently. Our user-friendly
-                        dashboard helps you track progress, gain insights, and make informed decisions to achieve your goals.
+                        Satyadarshi is your AI-powered legal assistant, designed to help you understand your rights, assess your situation, and guide you through legal solutions with ease and confidence.
                     </p>
 
                     <ul className="mt-6 space-y-3">
                         <li className="flex items-center">
                             <span className="text-green-400 rounded-full border-2 border-green-600 text-xl mr-3 animate-pulse"><FaCheckCircle /></span>
-                            <span className="text-base sm:text-lg font-medium">AI-powered industry insights to guide your journey</span>
+                            <span className="text-base sm:text-lg font-medium">AI-based legal needs assessment for your situation</span>
                         </li>
                         <li className="flex items-center">
                             <span className="text-green-400 rounded-full border-2 border-green-600 text-xl mr-3 animate-pulse"><FaCheckCircle /></span>
-                            <span className="text-base sm:text-lg font-medium">Personalized dashboards for tracking your progress</span>
+                            <span className="text-base sm:text-lg font-medium">Easy-to-use dashboard to track advice and documents</span>
                         </li>
                         <li className="flex items-center">
                             <span className="text-green-400 rounded-full border-2 border-green-600 text-xl mr-3 animate-pulse"><FaCheckCircle /></span>
-                            <span className="text-base sm:text-lg font-medium">Interactive tools for resume building and assessments</span>
+                            <span className="text-base sm:text-lg font-medium">AI-generated legal documents tailored to your needs</span>
                         </li>
                         <li className="flex items-center">
                             <span className="text-green-400 rounded-full border-2 border-green-600 text-xl mr-3 animate-pulse"><FaCheckCircle /></span>
-                            <span className="text-base sm:text-lg font-medium">Discover career paths tailored to your skills and goals</span>
+                            <span className="text-base sm:text-lg font-medium">Voice-assisted legal guidance for faster clarity</span>
                         </li>
                     </ul>
                 </div>

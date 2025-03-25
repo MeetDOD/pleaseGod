@@ -12,6 +12,8 @@ import Loader from "./services/Loader";
 import NotFound from "./pages/NotFound";
 import Footer from "./home/Footer";
 import LegalForm from "./Dashboard/LegalForm";
+import LegalDocuments from './components/LegalDocuments';
+import LegalAid from "./Dashboard/LegalAid";
 
 const App = () => {
   return (
@@ -19,6 +21,7 @@ const App = () => {
       <BrowserRouter>
         <div className="mx-4 sm:mx-[10%]">
           <Navbar />
+          <AddDetailForm />
           <GoogleTranslate />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -44,6 +47,23 @@ const App = () => {
                 <LegalForm />
               </AuthenticatedRoute>
             } />
+            <Route
+              path="/legal-documents"
+              element={
+                <AuthenticatedRoute>
+                  <LegalDocuments />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/legal-assistant"
+              element={
+                <AuthenticatedRoute>
+                  <LegalAid />
+                </AuthenticatedRoute>
+              }
+            />
+
           </Routes>
           <Toaster richColors />
         </div>

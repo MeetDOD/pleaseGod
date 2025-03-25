@@ -12,10 +12,10 @@ const socialLinks = [
 
 const quickLinks = [
     { id: 'home', label: 'Home', hash: '/', icon: FaHome },
-    { id: 'courses', label: 'Courses', hash: '/courses', icon: FaBook },
+    { id: 'courses', label: 'Legal Basics', hash: '/courses', icon: FaBook },
     { id: 'about', label: 'About', hash: '/about', icon: FaInfoCircle },
-    { id: 'riverflow', label: 'Riverflow', hash: '/riverflow', icon: BiWater },
-    { id: 'pricing', label: 'Pricing', hash: '/pricing', icon: IoIosPricetags }
+    { id: 'riverflow', label: 'Case Explorer', hash: '/riverflow', icon: BiWater },
+    { id: 'pricing', label: 'Pro Plans', hash: '/pricing', icon: IoIosPricetags }
 ];
 
 const Footer = () => {
@@ -54,14 +54,14 @@ const Footer = () => {
                 </div>
 
                 <div className="p-4">
-                    <h2 className="font-bold text-primary text-3xl mb-4">About Career Insight</h2>
+                    <h2 className="font-bold text-primary text-3xl mb-4">About SATYADARSHI</h2>
                     <p className="font-semibold">
-                        <span className="text-3xl">👋</span> <span className="font-bold text-xl tracking-tight text-primary">Career Insight</span> is dedicated to helping students build professional portfolios, gain career insights, and connect with industry experts. Start your journey towards career success today!
+                        <span className="text-3xl">👋</span> <span className="font-bold text-xl tracking-tight text-primary">SATYADARSHI</span> is dedicated to empowering individuals with legal awareness, personalized guidance, and access to trusted legal professionals. Begin your journey towards justice and informed decision-making today!
                     </p></div>
             </div>
 
             <div className="text-center text-sm font-semibold mt-7 pt-4 mb-2.5">
-                Made with <span className='text-xl'>💓</span> by SATYADARSHI, Copyright © 2024 All rights reserved by <span className='text-primary font-bold'>Meet, Ramesh & Kashish</span>
+                Made with <span className='text-xl'>💓</span> by SATYADARSHI, Copyright © 2024 All rights reserved by <span className='text-primary font-bold'>Meet, Sridhar, Shreya & Kowshik</span>
             </div>
         </footer>
     );
