@@ -133,7 +133,7 @@ const LegalForm = () => {
             setResponseDetails(null);
             
             try {
-                // Create FormData object for multipart/form-data submission
+                // Create form data to send
                 const formDataToSend = new FormData();
                 
                 // Add form fields to FormData
@@ -141,7 +141,7 @@ const LegalForm = () => {
                     formDataToSend.append(key, formData[key]);
                 });
                 
-                // Add extracted text instead of the file
+                // Add extracted text to the form data
                 if (extractedText) {
                     formDataToSend.append('documentText', extractedText);
                 }
@@ -335,7 +335,7 @@ const LegalForm = () => {
                             onChange={handleFileChange}
                             className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
                         />
-                        <p className="mt-1 text-xs text-indigo-600">Supported formats: PDF, JPG, PNG, DOC, DOCX (Max 5MB)</p>
+                        <p className="mt-1 text-xs text-indigo-600">Supported formats: PDF </p>
                         {documentFile && (
                             <p className="mt-1 text-xs text-indigo-600">
                                 Selected file: {documentFile.name} ({(documentFile.size / (1024 * 1024)).toFixed(2)} MB)

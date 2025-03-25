@@ -1,6 +1,4 @@
 const axios = require('axios');
-const path = require('path');
-const fs = require('fs');
 
 // Controller function for submitting a legal case
 exports.submitLegalCase = async (req, res) => {
@@ -11,7 +9,8 @@ exports.submitLegalCase = async (req, res) => {
             phone, 
             preferredLanguage, 
             legalIssue, 
-            caseDetails 
+            caseDetails,
+            documentText // Add this to receive the extracted text
         } = req.body;
 
         console.log('Request body:', req.body);
@@ -25,48 +24,32 @@ exports.submitLegalCase = async (req, res) => {
             });
         }
 
-        // File info (using express-fileupload)
-        let fileInfo = null;
-        if (req.files && req.files.document) {
-            const document = req.files.document;
-            const uploadsDir = path.join(__dirname, '../uploads/documents');
-            
-            // Create directory if it doesn't exist
-            if (!fs.existsSync(uploadsDir)) {
-                fs.mkdirSync(uploadsDir, { recursive: true });
-            }
-            
-            // Generate unique filename
-            const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-            const fileExt = path.extname(document.name);
-            const filename = `legal-doc-${uniqueSuffix}${fileExt}`;
-            const filepath = path.join(uploadsDir, filename);
-            
-            // Move the file to uploads directory
-            await document.mv(filepath);
-            
-            fileInfo = {
-                filename: filename,
-                originalname: document.name,
-                path: filepath,
-                mimetype: document.mimetype,
-                size: document.size
-            };
-        }
-
-        // Send data to Make.com webhook
-        const response = await axios.post("https://hook.eu2.make.com/w5hhkqypyrb8kb69nlz4kxfh9v77591c", {
+        // Create payload for webhook
+        const webhookPayload = {
             fullName,
             email,
             phone,
             preferredLanguage,
             legalIssue,
             caseDetails,
-            hasDocument: !!fileInfo,
-            documentInfo: fileInfo,
+            hasDocumentText: !!documentText,
             submitTime: new Date().toISOString()
-        });
-        console.log(response);
+        };
+
+        // Add document text if available
+        if (documentText) {
+            webhookPayload.documentText = documentText;
+            
+            // Add a summary of the document text (first 100 chars)
+            webhookPayload.documentTextSummary = 
+                documentText.length > 100 
+                    ? documentText.substring(0, 100) + '...' 
+                    : documentText;
+        }
+
+        // Send data to Make.com webhook
+        const response = await axios.post("https://hook.eu2.make.com/w5hhkqypyrb8kb69nlz4kxfh9v77591c", webhookPayload);
+        
         // Generate a simple reference number for the case
         const caseReference = `CASE-${Date.now().toString().slice(-6)}`;
 
@@ -81,7 +64,8 @@ exports.submitLegalCase = async (req, res) => {
                 preferredLanguage,
                 legalIssue,
                 caseDetailsLength: caseDetails.length,
-                hasFile: !!fileInfo
+                hasDocumentText: !!documentText,
+                documentTextLength: documentText ? documentText.length : 0
             }
         });
     } catch (error) {
