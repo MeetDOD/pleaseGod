@@ -133,6 +133,7 @@ const Maps = () => {
                 </div>
                 <GoogleMap
                     center={currentLocation || { lat: 19.0760, lng: 72.8777 }} // Default to Mumbai
+                    
                     zoom={10}
                     mapContainerStyle={{ width: "100%", height: "100%" }}
                 >
