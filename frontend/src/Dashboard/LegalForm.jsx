@@ -518,7 +518,6 @@ const LegalForm = () => {
                                     className={`w-full px-3 py-2 border inputField ${errors.caseDetails ? 'border-red-500' : 'border-indigo-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500`}
                                 />
                                 {errors.caseDetails && <p className="mt-1 text-sm text-red-600">{errors.caseDetails}</p>}
-                                <p className="mt-1 text-xs text-indigo-600">{formData.caseDetails.length} / 10 characters minimum</p>
                             </div>
 
                             <div className="mb-4">
