@@ -60,9 +60,13 @@ app.post("/api/directions", async (req, res) => {
     const googleMapsUrl = `https://routes.googleapis.com/directions/v2:computeRoutes`;
     // Build the request body using coordinates and travelMode from the payload.
     const requestBody = {
-      origin: { location: { lat: origin.lat, lng: origin.lng } },
-      destination: { location: { lat: destination.lat, lng: destination.lng } },
-      travelMode:  "DRIVING"
+      origin: {
+        address: origin.address
+      },
+      destination: {
+        address: destination.address
+      },
+      travelMode: travelMode || "DRIVE"
     };
     console.log("Request Body:", requestBody);
 

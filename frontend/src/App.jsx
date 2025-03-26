@@ -27,6 +27,7 @@ import Questions from "./Community/Questions";
 import ViewQuestion from "./Community/ViewQuestion";
 import Allpodcast from "./AIPodcast/ALLPodcast";
 import Maps from "./Dashboard/Maps";
+import KanbanBoard from "./Kanban/KanbanBoard";
 const App = () => {
   return (
     <Suspense fallback={<Loader />}>
@@ -71,6 +72,14 @@ const App = () => {
               element={
                 <AuthenticatedRoute>
                   <Maps />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/kanbanboard"
+              element={
+                <AuthenticatedRoute>
+                  <KanbanBoard />
                 </AuthenticatedRoute>
               }
             />
