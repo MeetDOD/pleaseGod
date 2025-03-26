@@ -12,6 +12,7 @@ import { FaBandAid, FaFolderOpen, FaNewspaper, FaVideo } from "react-icons/fa";
 import { MdSettingsVoice } from "react-icons/md";
 import { Crown } from 'lucide-react';
 import { FaMapMarked } from "react-icons/fa";
+import { PiKanbanFill } from "react-icons/pi";
 
 const data = {
     navMain: [
@@ -23,6 +24,7 @@ const data = {
         { title: 'News', url: '/news', icon: FaNewspaper },
         { title: 'Legal Videos', url: '/legalvideos', icon: FaVideo },
         { title: 'Search Map', url: '/map', icon: FaMapMarked },
+        { title: 'Kanban Board', url: '/kanbanboard', icon: PiKanbanFill }
     ],
 };
 
