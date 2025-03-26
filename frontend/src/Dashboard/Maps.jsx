@@ -1,7 +1,7 @@
 "use client";
 import '@babel/polyfill';
-import { useEffect, useState } from "react";
-import { useLoadScript, GoogleMap, Marker, InfoWindow, Polyline } from "@react-google-maps/api";
+import { useEffect, useState, useRef } from "react";
+import { useLoadScript, GoogleMap, Marker, InfoWindow, Polyline, Autocomplete } from "@react-google-maps/api";
 import { toast } from 'sonner';
 import AppSidebar from './AppSidebar';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
@@ -13,6 +13,9 @@ import {
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Separator } from '@/components/ui/separator';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMicrophone, faStop } from '@fortawesome/free-solid-svg-icons';
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
 const libraries = ["places", "geometry"];
 
@@ -43,6 +46,82 @@ const Maps = () => {
     const [currentLocation, setCurrentLocation] = useState(null);
     const [selectedLocation, setSelectedLocation] = useState(null);
     const [routePath, setRoutePath] = useState(null);
+    const [searchInput, setSearchInput] = useState("");
+    const [searchCoordinates, setSearchCoordinates] = useState(null);
+    const [recording, setRecording] = useState(false);
+    const inputRef = useRef(null);
+    const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
+
+    // Initialize SpeechRecognition
+    const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition = null;
+    
+    try {
+        recognition = new SpeechRecognitionAPI();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        
+        recognition.onresult = (event) => {
+            const speechToText = event.results[0][0].transcript;
+            setSearchInput(speechToText);
+            toast.success("Address transcribed!");
+        };
+
+        recognition.onerror = (event) => {
+            console.error("Speech recognition error:", event.error);
+            stopRecording();
+            
+            switch(event.error) {
+                case 'network':
+                    toast.error("Network error: Please check your internet connection.");
+                    break;
+                case 'not-allowed':
+                    toast.error("Microphone access denied. Please allow microphone access.");
+                    break;
+                case 'no-speech':
+                    toast.error("No speech was detected. Please try again.");
+                    break;
+                default:
+                    toast.error(`Speech recognition error: ${event.error}`);
+            }
+        };
+
+        recognition.onend = () => {
+            setRecording(false);
+        };
+        
+    } catch (error) {
+        console.error("Speech recognition not supported:", error);
+        toast.error("Speech recognition is not supported in your browser.");
+    }
+
+    const startRecording = () => {
+        if (!recognition) {
+            toast.error("Speech recognition is not supported in your browser.");
+            return;
+        }
+        try {
+            setRecording(true);
+            recognition.start();
+        } catch (error) {
+            console.error("Error starting recognition:", error);
+            toast.error("Error starting speech recognition");
+            setRecording(false);
+        }
+    };
+
+    const stopRecording = () => {
+        if (recognition) {
+            recognition.stop();
+        }
+        setRecording(false);
+    };
+
+    useEffect(() => {
+        if (transcript) {
+            setSearchInput(transcript);
+        }
+    }, [transcript]);
 
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "",
@@ -87,7 +166,7 @@ const Maps = () => {
             });
             const destinationAddress = destResult.results[0].formatted_address;
 
-            const response = await fetch("http://localhost:4000/api/directions", {
+            const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/directions`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -119,6 +198,26 @@ const Maps = () => {
         }
     };
 
+    useEffect(() => {
+        if (isLoaded && window.google && inputRef.current) {
+            const autocomplete = new window.google.maps.places.Autocomplete(inputRef.current, {
+                types: ["geocode"],
+            });
+
+            autocomplete.addListener("place_changed", () => {
+                const place = autocomplete.getPlace();
+                if (place.geometry) {
+                    setSearchCoordinates({
+                        lat: place.geometry.location.lat(),
+                        lng: place.geometry.location.lng(),
+                    });
+                    setSearchInput(place.formatted_address);
+                    toast.success("Location selected!");
+                }
+            });
+        }
+    }, [isLoaded]);
+
     if (loadError) return <div>Error loading maps</div>;
     if (!isLoaded) return <div>Loading maps...</div>;
 
@@ -141,9 +240,28 @@ const Maps = () => {
                         </BreadcrumbList>
                     </Breadcrumb>
                 </div>
-                <GoogleMap
-                    center={currentLocation || { lat: 19.0760, lng: 72.8777 }} // Default to Mumbai
 
+                {/* Search Input */}
+                <div className="mb-4 flex items-center gap-2">
+                    <input
+                        type="text"
+                        ref={inputRef}
+                        className="w-full rounded-lg border border-gray-300 px-4 py-2 text-black"
+                        placeholder="Search for a location"
+                        value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
+                    />
+                    <button 
+                        onClick={recording ? stopRecording : startRecording} 
+                        className="p-2 rounded-full hover:bg-gray-100"
+                        title={recording ? "Stop Recording" : "Start Recording"}
+                    >
+                        <FontAwesomeIcon icon={recording ? faStop : faMicrophone} />
+                    </button>
+                </div>
+
+                <GoogleMap
+                    center={currentLocation || { lat: 19.0760, lng: 72.8777 }}
                     zoom={10}
                     mapContainerStyle={{ width: "100%", height: "100%" }}
                 >
@@ -211,6 +329,44 @@ const Maps = () => {
                                 </button>
                             </div>
                         </InfoWindow>
+                    )}
+
+                    {/* Search Result Marker with InfoWindow */}
+                    {searchCoordinates && (
+                        <>
+                            <Marker
+                                position={searchCoordinates}
+                                icon={{
+                                    url: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png",
+                                }}
+                                title="Searched Location"
+                                onClick={() => setSelectedLocation({ 
+                                    name: searchInput,
+                                    lat: searchCoordinates.lat,
+                                    lng: searchCoordinates.lng
+                                })}
+                            />
+                            <InfoWindow
+                                position={searchCoordinates}
+                                onCloseClick={() => {
+                                    setSelectedLocation(null);
+                                    setRoutePath(null);
+                                }}
+                            >
+                                <div style={{ color: "black" }}>
+                                    <h3 className="font-bold">{searchInput}</h3>
+                                    <button
+                                        onClick={() => getDirections({
+                                            lat: searchCoordinates.lat,
+                                            lng: searchCoordinates.lng
+                                        })}
+                                        className="bg-blue-500 text-white px-3 py-1 rounded mt-2 hover:bg-blue-600"
+                                    >
+                                        Get Directions
+                                    </button>
+                                </div>
+                            </InfoWindow>
+                        </>
                     )}
                 </GoogleMap>
             </SidebarInset>
