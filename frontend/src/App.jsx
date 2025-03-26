@@ -25,7 +25,7 @@ import MockInterviewForm from "./AIConsultant/MockInterviewForm";
 import InterviewScreen from "./AIConsultant/InterviewScreen";
 import Questions from "./Community/Questions";
 import ViewQuestion from "./Community/ViewQuestion";
-import Allpodcast from "./AIPodcast/ALLPodcast";
+import Allpodcast from "./AIPodcast/AllPodcast";
 import Maps from "./Dashboard/Maps";
 import KanbanBoard from "./Kanban/KanbanBoard";
 const App = () => {
