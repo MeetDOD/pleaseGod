@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 import AppSidebar from './AppSidebar';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import {
-    Breadcrumb,
+    Breadcrumb,  
     BreadcrumbItem,
     BreadcrumbList,
     BreadcrumbPage,
