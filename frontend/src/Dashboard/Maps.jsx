@@ -74,15 +74,28 @@ const Maps = () => {
             return;
         }
         try {
+            // Convert coordinates to address using Geocoding service
+            const geocoder = new window.google.maps.Geocoder();
+            
+            // Get address for current location
+            const originResult = await geocoder.geocode({ location: currentLocation });
+            const originAddress = originResult.results[0].formatted_address;
+            
+            // Get address for destination
+            const destResult = await geocoder.geocode({ 
+                location: { lat: destination.lat, lng: destination.lng } 
+            });
+            const destinationAddress = destResult.results[0].formatted_address;
+
             const response = await fetch("http://localhost:4000/api/directions", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    origin: { lat: currentLocation.lat, lng: currentLocation.lng },
-                    destination: { lat: destination.lat, lng: destination.lng },
-                    travelMode: "DRIVING",
+                    origin: { address: originAddress },
+                    destination: { address: destinationAddress },
+                    travelMode: "DRIVE"
                 }),
             });
 
@@ -91,7 +104,6 @@ const Maps = () => {
             }
 
             const data = await response.json();
-            // Assuming the backend returns a structure with routes[0].polyline.encodedPolyline
             if (data.routes && data.routes.length > 0) {
                 const encoded = data.routes[0].polyline.encodedPolyline;
                 const decodedPath = window.google.maps.geometry.encoding.decodePath(encoded);
