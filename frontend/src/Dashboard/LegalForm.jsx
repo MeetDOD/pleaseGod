@@ -43,6 +43,7 @@ const LegalForm = () => {
     const [responseDetails, setResponseDetails] = useState(null);
     const [isPaid, setIsPaid] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [trialCount, setTrialCount] = useState(0);
     const navigate = useNavigate();
 
     const validateForm = () => {
@@ -158,6 +159,7 @@ const LegalForm = () => {
         e.preventDefault();
 
         // Call the API to check trial count
+
         const token = localStorage.getItem("token");
         if (token) {
             try {
@@ -166,8 +168,13 @@ const LegalForm = () => {
                         'Authorization': `Bearer ${token}`
                     }
                 });
+                const paid = await axios.get(`${API_URL}/api/user/is-paid`,{
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
 
-                if (response.data.trialCount > 3) {
+                if (!paid && response.data.trialCount ) {
                     // Show popup message
                     toast.error("Trial count exceeded. Please pay to continue.");
                     navigate('/proplans'); // Redirect to pro plans
@@ -317,16 +324,6 @@ const LegalForm = () => {
 
     // Check payment status on component mount
     useEffect(() => {
-        const paymentStatus = localStorage.getItem('legalFormPayment');
-        if (paymentStatus !== 'paid') {
-            // navigate('/proplans');
-            setIsPaid(false);
-        } else {
-            setIsPaid(true);
-        }
-    }, [navigate]);
-
-    useEffect(() => {
         const checkPaymentAndTrialCount = async () => {
             const token = localStorage.getItem("token");
             if (token) {
@@ -338,18 +335,21 @@ const LegalForm = () => {
                         }
                     });
 
+                    setIsPaid(paymentResponse.data.isPaid);
+
+                    // Only check trial count if user is not paid
                     if (!paymentResponse.data.isPaid) {
-                        // If not paid, check the trial count
                         const trialResponse = await axios.get(`${API_URL}/api/user/trial-count`, {
                             headers: {
                                 'Authorization': `Bearer ${token}`
                             }
                         });
 
-                        if (trialResponse.data.trialCount > 5) {
-                            // Show popup message
-                            toast.error("Please upgrade your plan.");
-                            navigate('/proplans'); // Redirect to pro plans
+                        setTrialCount(trialResponse.data.trialCount);
+
+                        if (trialResponse.data.trialCount > 3) {
+                            toast.error("You have exceeded your trial limit. Please upgrade your plan.");
+                            navigate('/proplans');
                         }
                     }
                 } catch (error) {
@@ -362,8 +362,9 @@ const LegalForm = () => {
         checkPaymentAndTrialCount();
     }, [navigate]);
 
-    // If not paid, don't render anything (useEffect will handle redirect)
-    if (!isPaid) {
+    // Modify the conditional rendering
+    if (!isPaid && trialCount > 3) {
+        navigate("/proplans");
         return null;
     }
 
