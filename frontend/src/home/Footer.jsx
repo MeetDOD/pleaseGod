@@ -6,8 +6,8 @@ import { BiWater } from "react-icons/bi";
 import { IoIosPricetags } from "react-icons/io";
 
 const socialLinks = [
-    { id: 'github', url: 'https://github.com/MeetDOD', icon: FaGithub },
-    { id: 'linkedin', url: 'https://www.linkedin.com/in/meetdodiya', icon: FaLinkedin }
+    { id: 'github', url: 'https://github.com/shreyak-29', icon: FaGithub },
+    { id: 'linkedin', url: 'https://www.linkedin.com/in/shreyakathe', icon: FaLinkedin }
 ];
 
 const quickLinks = [
@@ -61,7 +61,7 @@ const Footer = () => {
             </div>
 
             <div className="text-center text-sm font-semibold mt-7 pt-4 mb-2.5">
-                Made with <span className='text-xl'>💓</span> by SATYADARSHI, Copyright © 2024 All rights reserved by <span className='text-primary font-bold'>Meet, Sridhar, Shreya & Kowshik</span>
+                Made with <span className='text-xl'>💓</span> by SATYADARSHI by <span className='text-primary font-bold'> Shreya </span>
             </div>
         </footer>
     );
