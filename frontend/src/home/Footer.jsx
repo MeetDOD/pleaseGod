@@ -60,9 +60,7 @@ const Footer = () => {
                     </p></div>
             </div>
 
-            <div className="text-center text-sm font-semibold mt-7 pt-4 mb-2.5">
-                Made with <span className='text-xl'>💓</span> by SATYADARSHI by <span className='text-primary font-bold'> Shreya </span>
-            </div>
+            
         </footer>
     );
 };
